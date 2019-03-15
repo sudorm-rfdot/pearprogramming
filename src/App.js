@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <video autoPlay src={vid}></video>
+       <video controls src={vid}></video>
       </div>
     );
   }
