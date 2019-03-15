@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import vid from './resources/Globglogabgalab.mp4';
 import './App.css';
 
 class App extends Component {
@@ -21,13 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
-        <header>This is a header</header>
-        <input value={this.stuff} onChange={e => this.change(e.target.value)} />
-        <p>{this.state.stuff}</p>
-        <button onClick={() => this.toggle()}>
-        {this.state.toggle ? 'On' : 'Off'}
-        </button>
+       <video autoPlay src={vid}></video>
       </div>
     );
   }
