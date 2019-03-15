@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div className="App">
         
-        <p>hi</p>
+        <header>This is a header</header>
         <input value={this.stuff} onChange={e => this.change(e.target.value)} />
         <p>{this.state.stuff}</p>
       </div>
