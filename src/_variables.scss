@@ -1,0 +1,25 @@
+$primary-nav-color: #afffae;
+$background-color: #e3fff2;
+$primary-header-color: grey;
+$form-color: white;
+$default-form-size: 300px;
+$form-border: 1px solid grey;
+
+%primary-header {
+    font-size: 30px;
+    font-weight: 400;
+    color: $primary-header-color;
+}
+@mixin primary-header {
+    @extend %primary-header
+}
+
+%primary-form {
+    width: $default-form-size;
+    min-width: $default-form-size;
+    background: $form-color;
+    border: $form-border;
+}
+@mixin primary-form {
+    @extend %primary-form
+}
