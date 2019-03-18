@@ -11,8 +11,9 @@
     "massive": "^5.7.7",
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
-    "react-codemirror2": "^5.1.0",
     "react-dom": "^16.8.4",
+    "react-monaco-editor": "^0.25.1",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0"
