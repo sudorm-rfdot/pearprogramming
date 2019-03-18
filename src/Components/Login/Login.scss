@@ -1,0 +1,15 @@
+@import './../../variables';
+
+#login-component-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    border-radius: 15px;
+
+    @include primary-form;
+    h1 {
+        @include primary-header;
+    }
+}
