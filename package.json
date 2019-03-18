@@ -9,6 +9,7 @@
     "dotenv": "^7.0.0",
     "express-session": "^1.15.6",
     "massive": "^5.7.7",
+    "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-codemirror2": "^5.1.0",
     "react-dom": "^16.8.4",
