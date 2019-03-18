@@ -1,27 +1,46 @@
 import React, { Component } from 'react';
-import vid from './resources/Globglogabgalab.mp4';
+import MonacoEditor from 'react-monaco-editor';
 import './App.css';
 
 class App extends Component {
   state = {
-    toggle: false,
-    stuff: ''
+    code: '',
   }
 
-  change = (val) => {
+  editorDidMount = (editor, monaco) => {
+    editor.focus()
+    console.log('editor did mount', monaco)
+  }
+
+  onChange = (newValue, e) => {
+    console.log('e', e)
+    console.log('newValue', newValue);
     this.setState({
-      stuff: val
+      code: newValue
     })
   }
-  toggle()
-  {
-    this.setState({toggle: !this.state.toggle})
-  }
 
+  checkState = () => {
+    console.log(this.state.code)
+  }
   render() {
+    const code = this.state.code;
+    const options = {
+      selectOnLineNumbers: true
+    };
     return (
-      <div className="App">
-       <video controls src={vid}></video>
+      <div>
+          <MonacoEditor
+          width="60%"
+          height='100vh'
+          language="javascript"
+          theme="vs-dark"
+          value={code}
+          options={options}
+          onChange={this.onChange}
+          editorDidMount={this.editorDidMount}
+          />
+          {this.state.code}
       </div>
     );
   }
