@@ -5,6 +5,7 @@ const {json} = require('express');
 const massive = require('massive');
 const session = require('express-session');
 var io = require('socket.io')();
+const mc = require('./controller/MainController');
 
 const app = express();
 app.use(json());
@@ -22,6 +23,8 @@ massive(CONNECTION_STRING)
   const PORT = SERVER_PORT || 3005
   app.listen(PORT, console.log(`Server is running on ${PORT}`))
 })
+
+app.get('/api/projects/:id', mc.getUserProjects);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
