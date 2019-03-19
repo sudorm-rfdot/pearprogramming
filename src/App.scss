@@ -3,10 +3,19 @@
 #app-parent-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   min-width: $default-form-size;
-  min-height: 100vh;
+  height: 100%;
   background: $background-color;
+}
+
+#content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $content-container-color;
+  width: 80%;
+  min-height: 100vh;
 }
