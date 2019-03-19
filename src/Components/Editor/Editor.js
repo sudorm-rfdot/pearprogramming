@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import MonacoEditor from 'react-monaco-editor';
-
+import axios from 'axios'
 import './Editor.scss'
 
 
@@ -8,8 +8,8 @@ class Editor extends Component {
   state = {
     code: '',
     theme: 'vs-dark',
-    language: 'javascript'
-
+    language: 'javascript',
+    console: ''
   }
 
   editorDidMount = (editor, monaco) => {
@@ -42,14 +42,32 @@ class Editor extends Component {
     })
   }
 
+  compile = () => {
+    axios.post('/api/compiler', {code: this.state.code})
+      .then(res => {
+        this.setState({
+          console: res.data
+        })
+    }).catch(err => {
+      console.log(`this ain't it chief`, err)
+    })
+  }
+
   render() {
+    const requireConfig = {
+      url: 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.1/require.min.js',
+      paths: {
+        'vs': 'https://www.mycdn.com/monaco-editor/0.6.1/min/vs'
+      }
+    };
     const { code, theme, language } = this.state;
     const options = {
       selectOnLineNumbers: true,
-      roundedSelection: false,
-      readOnly: false,
+      colorDecorators: true,
+      roundedSelection: true,
       cursorStyle: 'line',
-      automaticLayout: false,
+      automaticLayout: true,
+      
     };
     return (
       <div>
@@ -63,6 +81,7 @@ class Editor extends Component {
           <option value='css'>CSS</option>
           <option value='javascript' selected>JavaScript</option>
         </select>
+        {this.state.console}
         <MonacoEditor
           width="1000"
           height="800"
@@ -71,7 +90,9 @@ class Editor extends Component {
           options={options}
           theme={theme}
           onChange={this.onChange}
+          requireConfig={requireConfig}
         />
+        <button onClick={this.compile}>I'm hopefully finna run this ish</button>
       </div>
     );
   }
