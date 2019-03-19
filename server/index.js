@@ -7,6 +7,7 @@ const session = require('express-session');
 var io = require('socket.io')();
 const mc = require('./controller/MainController');
 const cc = require('./controller/CompilerController');
+const ac = require('./controller/AuthController');
 
 const app = express();
 app.use(json());
@@ -28,6 +29,16 @@ massive(CONNECTION_STRING)
 app.get('/api/projects/:id', mc.getUserProjects); //takes the users id
 app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
 app.get('/api/file/:id', mc.getOneFile) //takes the file id
+
+app.post('/auth/register', ac.register);
+app.post('/auth/login', ac.login);
+app.post('/auth/logout', ac.logout);
+app.post('/auth/verifypassword');
+
+app.put('/auth/updatepassword');
+app.put('/auth/updateprofilepicture');
+app.put('/auth/updateemail');
+app.put('/auth/updateusername');
 
 app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
 
