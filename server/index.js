@@ -6,6 +6,7 @@ const massive = require('massive');
 const session = require('express-session');
 var io = require('socket.io')();
 const mc = require('./controller/MainController');
+const cc = require('./controller/CompilerController');
 
 const app = express();
 app.use(json());
@@ -29,6 +30,8 @@ app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
 app.get('/api/file/:id', mc.getOneFile) //takes the file id
 
 app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
+
+app.post('/api/compiler', cc.compile);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
