@@ -24,7 +24,11 @@ massive(CONNECTION_STRING)
   app.listen(PORT, console.log(`Server is running on ${PORT}`))
 })
 
-app.get('/api/projects/:id', mc.getUserProjects);
+app.get('/api/projects/:id', mc.getUserProjects); //takes the users id
+app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
+app.get('/api/file/:id', mc.getOneFile) //takes the file id
+
+app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
