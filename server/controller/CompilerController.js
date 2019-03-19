@@ -3,7 +3,7 @@ const {spawn} = require('child_process')
 
 module.exports = {
   compile: (req, res) => {
-    const path = 'CompCode/index.js'
+    const path = 'CompCode/SOMETHINGCRAZYthnyuimuyhtbtynym.js'
     const {code} = req.body;
     const compCode = fs.createWriteStream(path);
     compCode.write(code);
