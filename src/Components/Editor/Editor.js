@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
+import './Editor.scss'
+
+
 class Editor extends Component {
   state = {
     code: '',
@@ -61,8 +64,8 @@ class Editor extends Component {
           <option value='javascript' selected>JavaScript</option>
         </select>
         <MonacoEditor
-          width="800"
-          height="600"
+          width="1000"
+          height="800"
           language={language}
           value={code}
           options={options}
