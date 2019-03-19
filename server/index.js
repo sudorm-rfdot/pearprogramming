@@ -35,6 +35,7 @@ app.post('/auth/register', ac.register);
 app.post('/auth/login', ac.login);
 app.post('/auth/logout', ac.logout);
 app.post('/auth/verifypassword');
+app.get('/auth/getsessionuser', ac.getSessionUser)
 
 app.put('/auth/updatepassword');
 app.put('/auth/updateprofilepicture');

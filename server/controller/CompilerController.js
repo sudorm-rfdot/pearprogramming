@@ -3,12 +3,12 @@ const {spawn} = require('child_process')
 
 module.exports = {
   compile: (req, res) => {
-    const path = 'CompCode/SOMETHINGCRAZYthnyuimuyhtbtynym.js'
+    const emptyJS = 'CompCode/SOMETHINGCRAZYthnyuimuyhtbtynym.js'
     const {code} = req.body;
-    const compCode = fs.createWriteStream(path);
+    const compCode = fs.createWriteStream(emptyJS);
     compCode.write(code);
     compCode.end();
-    const compiler = spawn('node', [path]);
+    const compiler = spawn('node', [emptyJS]);
     compiler.stdout.setEncoding('ascii')
     compiler.stderr.setEncoding('ascii')
     compiler.stdout.on('data', (data) => {

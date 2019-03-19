@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import { handleChange } from './../Logic/handleChangeLogic'
+import { handleCheckUser } from '../Logic/UserLoggedInLogic'
+import { handleRegisterButton } from './RegisterLogic'
 
 import './Register.scss'
 
@@ -11,6 +13,13 @@ class Register extends Component {
         email: '',
         password: '',
         passwordVer: ''
+    }
+
+    componentDidMount() {
+        const { id } = this.props
+        if(handleCheckUser(id)) {
+            return this.props.history.push(handleCheckUser(id))
+        }
     }
 
     render() {
@@ -51,7 +60,7 @@ class Register extends Component {
                     value={passwordVer}
                     onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({...newObj});}}
                 />
-                <button>Register</button>
+                <button onClick={() => handleRegisterButton()}>Register</button>
                 <p>Already have an account <span><Link to='/'>create one</Link></span></p>
             </div>
         )

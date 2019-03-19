@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import { handleChange } from './../Logic/handleChangeLogic'
+import { handleCheckUser } from '../Logic/UserLoggedInLogic'
 
 import './Login.scss'
 
@@ -10,6 +11,13 @@ class Login extends Component {
         errorsList: [],
         password: '',
         email: ''
+    }
+
+    componentDidMount() {
+        const { id } = this.props
+        if(handleCheckUser(id)) {
+            return this.props.history.push(handleCheckUser(id))
+        }
     }
 
     render() {
