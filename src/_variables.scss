@@ -1,5 +1,4 @@
 $primary-nav-color: rgb(30, 30, 30);
-//$background-color: #e3fff2;
 $background-color: rgb(85, 85, 85);
 $primary-header-color: rgb(230, 230, 230);
 $form-color: rgba(100, 100, 100, 0.5);
@@ -48,6 +47,13 @@ $navbar-size: 50px;
     @extend %primary-input;
 }
 
+%primary-input-hover {
+    background: rgb(117, 117, 117);
+}
+@mixin primary-input-hover {
+    @extend %primary-input-hover;
+}
+
 %primary-button {
     width: 100px;
     margin: 5px;
@@ -55,9 +61,17 @@ $navbar-size: 50px;
     border-radius: 15px;
     background: rgb(130, 130, 130);
     color: $primary-header-color;
+    outline: none;
 }
 @mixin primary-button {
     @extend %primary-button;
+}
+
+%primary-button-hover {
+    background: rgb(100, 100, 100);
+}
+@mixin primary-button-hover {
+    @extend %primary-button-hover
 }
 
 %primary-p-tag {
@@ -70,7 +84,15 @@ $navbar-size: 50px;
 
 %primary-a-tag {
     color: rgb(0, 144, 228);
+    outline: none;
 }
 @mixin primary-a-tag {
     @extend %primary-a-tag;
+}
+
+%primary-a-tag-hover {
+    color: rgb(0, 115, 182);
+}
+@mixin primary-a-tag-hover {
+    @extend %primary-a-tag-hover;
 }
