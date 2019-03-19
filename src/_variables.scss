@@ -1,11 +1,12 @@
-$primary-nav-color: #afffae;
+$primary-nav-color: rgb(30, 30, 30);
 //$background-color: #e3fff2;
-$background-color: #555;
+$background-color: rgb(85, 85, 85);
 $primary-header-color: rgb(230, 230, 230);
 $form-color: rgba(100, 100, 100, 0.5);
-$content-container-color: #444;
+$content-container-color: rgb(68, 68, 68);
 $default-form-size: 300px;
 $form-border: 1px solid rgba(128, 128, 128, 0.5);
+$navbar-size: 50px;
 
 %primary-header {
     font-size: 30px;

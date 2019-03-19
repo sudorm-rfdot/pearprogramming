@@ -3,7 +3,6 @@
 #app-parent-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
   min-width: $default-form-size;
   height: 100%;
@@ -13,9 +12,9 @@
 #content-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background: $content-container-color;
+  margin-left: 10%;
   width: 80%;
-  min-height: 100vh;
+  min-height: calc(100vh - #{$navbar-size});
 }

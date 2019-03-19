@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import {BrowserRouter as Router} from 'react-router-dom'
+import Header from './Components/Header/Header'
 import routes from './routes'
 import './reset.scss'
 import './App.scss';
@@ -47,6 +48,7 @@ class App extends Component {
             />
             {this.state.code}
             */}
+            <Header />
             <div id='content-container'>
               {routes}
             </div>
