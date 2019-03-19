@@ -1,17 +1,20 @@
 $primary-nav-color: #afffae;
-$background-color: #e3fff2;
-$primary-header-color: grey;
-$form-color: white;
+//$background-color: #e3fff2;
+$background-color: #555;
+$primary-header-color: rgb(230, 230, 230);
+$form-color: rgba(100, 100, 100, 0.5);
+$content-container-color: #444;
 $default-form-size: 300px;
-$form-border: 1px solid grey;
+$form-border: 1px solid rgba(128, 128, 128, 0.5);
 
 %primary-header {
     font-size: 30px;
     font-weight: 400;
     color: $primary-header-color;
+    margin: 5px;
 }
 @mixin primary-header {
-    @extend %primary-header
+    @extend %primary-header;
 }
 
 %primary-form {
@@ -21,5 +24,52 @@ $form-border: 1px solid grey;
     border: $form-border;
 }
 @mixin primary-form {
-    @extend %primary-form
+    @extend %primary-form;
+}
+
+::placeholder {
+    color: $primary-header-color;
+    opacity: .5;
+}
+%primary-input {
+    width: calc(#{$default-form-size} - 100px);
+    height: 25px;
+    font-size: 15px;
+    padding: 3px;
+    border-radius: 15px;
+    margin: 5px;
+    text-align: center;
+    outline: none;
+    background: rgb(130, 130, 130);
+    color: $primary-header-color;
+}
+@mixin primary-input {
+    @extend %primary-input;
+}
+
+%primary-button {
+    width: 100px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 15px;
+    background: rgb(130, 130, 130);
+    color: $primary-header-color;
+}
+@mixin primary-button {
+    @extend %primary-button;
+}
+
+%primary-p-tag {
+    color: $primary-header-color;
+    margin: 5px;
+}
+@mixin primary-p-tag {
+    @extend %primary-p-tag;
+}
+
+%primary-a-tag {
+    color: rgb(0, 144, 228);
+}
+@mixin primary-a-tag {
+    @extend %primary-a-tag;
 }

@@ -34,6 +34,7 @@ class App extends Component {
     return (
       <Router>
         <div id='app-parent-container'>
+            {/*
             <MonacoEditor
             width="60%"
             height='100vh'
@@ -45,7 +46,10 @@ class App extends Component {
             editorDidMount={this.editorDidMount}
             />
             {this.state.code}
-            {routes}
+            */}
+            <div id='content-container'>
+              {routes}
+            </div>
         </div>
       </Router>
     );
