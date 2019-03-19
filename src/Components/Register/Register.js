@@ -1,14 +1,20 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
+
+import { handleChange } from './../Logic/handleChangeLogic'
+
 import './Register.scss'
 
 class Register extends Component {
     state = {
-        errorsList: []
+        errorsList: [],
+        email: '',
+        password: '',
+        passwordVer: ''
     }
 
     render() {
-        const {errorsList} = this.state
+        const {errorsList, password, passwordVer, email} = this.state
         const errors = errorsList.map((error, index) => {
             return <li key={index}>{error}</li>
         })
@@ -24,9 +30,27 @@ class Register extends Component {
                     null
                 }
                 <h1>Register</h1>
-                <input placeholder='Email' type='email' maxLength='250'/>
-                <input placeholder='Password' type='password' maxLength='40'/>
-                <input placeholder='Verify Password' type='password' maxLength='40'/>
+                <input
+                    placeholder='Email'
+                    type='email'
+                    maxLength='250'
+                    value={email}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj});}}
+                />
+                <input
+                    placeholder='Password'
+                    type='password'
+                    maxLength='40'
+                    value={password}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj});}}
+                />
+                <input
+                    placeholder='Verify Password'
+                    type='password'
+                    maxLength='40'
+                    value={passwordVer}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({...newObj});}}
+                />
                 <button>Register</button>
                 <p>Already have an account <span><Link to='/'>create one</Link></span></p>
             </div>

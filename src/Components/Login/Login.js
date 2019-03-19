@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import { handleChange } from './../Logic/handleChangeLogic'
+
 import './Login.scss'
 
 class Login extends Component {
     state = {
-        errorsList: []
+        errorsList: [],
+        password: '',
+        email: ''
     }
 
     render() {
-        const {errorsList} = this.state
+        const {errorsList, password, email} = this.state
         const errors = errorsList.map((error, index) => {
             return <li key={index}>{error}</li>
         })
@@ -25,8 +29,20 @@ class Login extends Component {
                     null
                 }
                 <h1>Login</h1>
-                <input placeholder='Email' type='email' maxLength='250'/>
-                <input placeholder='Password' type='password' maxLength='40'/>
+                <input
+                    placeholder='Email'
+                    type='email'
+                    maxLength='250'
+                    value={email}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj})}}
+                />
+                <input
+                    placeholder='Password'
+                    type='password'
+                    maxLength='40'
+                    value={password}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj});}}
+                />
                 <button>Login</button>
                 <p>Don't have an account <span><Link to='/register'>create one</Link></span></p>
             </div>
