@@ -6,6 +6,7 @@ const massive = require('massive');
 const session = require('express-session');
 var io = require('socket.io')();
 const mc = require('./controller/MainController');
+const cc = require('./controller/CompilerController');
 const ac = require('./controller/AuthController');
 
 const app = express();
@@ -27,7 +28,8 @@ massive(CONNECTION_STRING)
 
 app.get('/api/projects/:id', mc.getUserProjects); //takes the users id
 app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
-app.get('/api/file/:id', mc.getOneFile) //takes the file id
+app.get('/api/file/:id', mc.getOneFile); //takes the file id
+app.get('/api/profile/:id', mc.getUserProfile); //takes the user id
 
 app.post('/auth/register', ac.register);
 app.post('/auth/login', ac.login);
@@ -40,6 +42,8 @@ app.put('/auth/updateemail');
 app.put('/auth/updateusername');
 
 app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
+
+app.post('/api/compiler', cc.compile);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
