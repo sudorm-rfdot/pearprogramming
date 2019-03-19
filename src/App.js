@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router} from 'react-router-dom'
 import routes from './routes'
+import './reset.scss'
 import './App.scss';
 
 class App extends Component {
@@ -8,11 +9,26 @@ class App extends Component {
   render() {
     
     return (
-      <div>
-        <Router>
-          {routes}
-        </Router>
-      </div>
+      <Router>
+        <div id='app-parent-container'>
+            {/*
+            <MonacoEditor
+            width="60%"
+            height='100vh'
+            language="javascript"
+            theme="vs-dark"
+            value={code}
+            options={options}
+            onChange={this.onChange}
+            editorDidMount={this.editorDidMount}
+            />
+            {this.state.code}
+            */}
+            <div id='content-container'>
+              {routes}
+            </div>
+        </div>
+      </Router>
     );
   }
 }
