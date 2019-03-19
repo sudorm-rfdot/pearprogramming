@@ -11,19 +11,6 @@ class App extends Component {
     return (
       <Router>
         <div id='app-parent-container'>
-            {/*
-            <MonacoEditor
-            width="60%"
-            height='100vh'
-            language="javascript"
-            theme="vs-dark"
-            value={code}
-            options={options}
-            onChange={this.onChange}
-            editorDidMount={this.editorDidMount}
-            />
-            {this.state.code}
-            */}
             <div id='content-container'>
               {routes}
             </div>
