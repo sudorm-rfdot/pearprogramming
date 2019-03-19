@@ -22,5 +22,11 @@ module.exports = {
         req.app.get('db').get_one_file(id)
         .then(file => res.status(200).send(file))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    getUserProfile: (req, res) => {
+        const {id} = req.params;
+        req.app.get('db').get_user_profile(id)
+        .then(profile => res.status(200).send(profile))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     }
 }

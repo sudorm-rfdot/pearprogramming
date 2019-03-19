@@ -28,7 +28,8 @@ massive(CONNECTION_STRING)
 
 app.get('/api/projects/:id', mc.getUserProjects); //takes the users id
 app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
-app.get('/api/file/:id', mc.getOneFile) //takes the file id
+app.get('/api/file/:id', mc.getOneFile); //takes the file id
+app.get('/api/profile/:id', mc.getUserProfile); //takes the user id
 
 app.post('/auth/register', ac.register);
 app.post('/auth/login', ac.login);
