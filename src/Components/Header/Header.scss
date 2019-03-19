@@ -1,0 +1,12 @@
+@import './../../variables';
+
+#header-parent {
+    height: $navbar-size;
+    background: $primary-nav-color;
+    
+    img {
+        width: 70px;
+        margin-left: 5px;
+        padding: 5px;
+    }
+}
