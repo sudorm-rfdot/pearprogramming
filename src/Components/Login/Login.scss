@@ -34,4 +34,13 @@
     a:hover, a:focus {
         @include primary-a-tag-hover;
     };
+    li {
+        @include primary-li-error;
+    };
+    .input-error {
+        @include failed-input;
+    }
+    .input-error:hover, .input-error:focus {
+        @include failed-input-hover;
+    }
 }
