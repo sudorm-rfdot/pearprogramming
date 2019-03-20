@@ -75,7 +75,7 @@ class Login extends Component {
                     type='email'
                     maxLength='250'
                     value={email}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: []})}}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('email'))]})}}
                 />
                 <input
                     ref={this.passwordInput}
@@ -83,7 +83,7 @@ class Login extends Component {
                     type='password'
                     maxLength='40'
                     value={password}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: []});}}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('password'))]});}}
                 />
                 <button onClick={() => this.handleLoginButton(email, password)}>Login</button>
                 <p>Don't have an account <span><Link to='/register'>create one</Link></span></p>
