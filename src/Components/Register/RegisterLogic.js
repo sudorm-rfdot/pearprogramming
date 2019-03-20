@@ -21,6 +21,10 @@ export function handleRegisterErrors(email, password, passwordVer) {
         newArr.push('You must enter a password')
     }
 
+    if(password.length < 6) {
+        newArr.push('Password needs 6 characters')
+    }
+
     if(!passwordVer) {
         newArr.push('Please retype your password')
     }
