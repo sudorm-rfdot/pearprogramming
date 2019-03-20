@@ -3,7 +3,7 @@ const {spawn} = require('child_process')
 
 module.exports = {
   compile: (req, res) => {
-    const emptyJS = 'CompCode/SOMETHINGCRAZYthnyuimuyhtbtynym.js'
+    const emptyJS = 'CompiledCode.js'
     const {code} = req.body;
     const compCode = fs.createWriteStream(emptyJS);
     compCode.write(code);
