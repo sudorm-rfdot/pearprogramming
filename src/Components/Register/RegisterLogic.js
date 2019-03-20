@@ -1,3 +1,11 @@
+function checkEmail(email) 
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return true
+    }
+    return false
+}
+
 export function handleRegisterErrors(email, password, passwordVer) {
     let newArr = []
 
@@ -5,8 +13,16 @@ export function handleRegisterErrors(email, password, passwordVer) {
         newArr.push('You must enter an email')
     }
 
+    if(email && !checkEmail(email)) {
+        newArr.push('You must enter a valid email')
+    }
+
     if(!password) {
         newArr.push('You must enter a password')
+    }
+
+    if(password.length < 6) {
+        newArr.push('Password needs 6 characters')
     }
 
     if(!passwordVer) {
