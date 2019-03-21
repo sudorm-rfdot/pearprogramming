@@ -5,6 +5,17 @@ module.exports = {
         .then(projects => res.status(200).send(projects))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
+    createProject: (req, res) => {
+        const {project_name} = req.body;
+        req.app.get('db').create_project(project_name)
+        .then(project => res.status(200).send(project))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    userProjectJoin: (req, res) => {
+        const {user_id, password_id, accepted} = req.body;
+        req.app.get('db').user_project_join([user_id, password_id, accepted])
+        .then(res.sendStatus(200))
+    },
     deleteProject: (req, res) => {
         const {id} = req.params;
         req.app.get('db').delete_project(id)
@@ -21,6 +32,18 @@ module.exports = {
         const {id} = req.params;
         req.app.get('db').get_one_file(id)
         .then(file => res.status(200).send(file))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    createProjectFiles: (req, res) => {
+        const {file_name, file_link, project_id} = req.body;
+        req.app.get('db').createProjectFiles([file_name, file_link, project_id])
+        .then(res.sendStatus(200))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    deleteProjectFiles: (req, res) => {
+        const {id} = req.params;
+        req.app.get('db').delete_files(id)
+        .then(res.sendStatus(200))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     getUserProfile: (req, res) => {
