@@ -1,0 +1,83 @@
+@import './../../variables';
+
+#profile-component-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+
+    img {
+        width: 200px;
+        border-radius: 100%;
+    }
+
+    .profile-user-info {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        border-radius: 15px;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @include primary-form;
+        h1 {
+            @include primary-header;
+            text-align: center;
+            font-size: 20px;
+        };
+        h2 {
+            @include primary-header;
+            text-align: center;
+            font-size: 15px;
+        };
+        input {
+            @include primary-input;
+        };
+        input:focus, input:hover {
+            @include primary-input-hover;
+        };
+        button {
+            @include primary-button;
+            width: 150px;
+            color: $primary-header-color;
+            margin-bottom: 25px;
+        };
+        button:hover, button:active {
+            @include primary-button-hover;
+        };
+        p {
+            @include primary-p-tag;
+        };
+        a {
+            @include primary-a-tag;
+        };
+        a:hover, a:focus {
+            @include primary-a-tag-hover;
+        };
+        li {
+            @include primary-li-error;
+        };
+        .input-error {
+            @include failed-input;
+        }
+        .input-error:hover, .input-error:focus {
+            @include failed-input-hover;
+        }
+        .delete-button {
+            color: $dark-error;
+            margin-bottom: 5px;
+        }
+        span {
+            button {
+                width: 75px;
+            }
+        }
+    }
+}

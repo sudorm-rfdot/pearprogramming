@@ -26,11 +26,11 @@ class Register extends Component {
     componentDidMount() {
         const { id } = this.props
         if (id > 0) {
-            this.props.history.push('/profile')
+            this.props.history.push('/home')
         } else {
             axios.get('/auth/getsessionuser')
             .then(res => {
-                    this.props.history.push('/profile')
+                    this.props.history.push('/home')
                 })
                 .catch(error => {})
         }
@@ -41,7 +41,7 @@ class Register extends Component {
         if(newArr.length < 1) {
             axios.post('/auth/register', {email, password})
                 .then(res => {
-                    this.props.history.push('/profile')
+                    this.props.history.push('/home')
                 })
                 .catch(error => {this.setState({errorsList: [error.response.data]})})
         } else {
