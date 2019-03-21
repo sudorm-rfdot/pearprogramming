@@ -5,6 +5,24 @@ module.exports = {
         .then(projects => res.status(200).send(projects))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
+    getPendingUserProjects: (req, res) => {
+        const {id} = req.params;
+        req.app.get('db').get_pending_projects(id)
+        .then(projects => res.status(200).send(projects))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    sendProjectRequest: (req, res) => {
+        const {user_id, project_id} = req.body;
+        req.app.get('db').send_project_request(user_id, project_id)
+        .then(res.sendStatus(200))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    acceptProjectRequest: (req, res) => {
+        const {id} = req.params;
+        req.app.get('db').accept_project_request(id)
+        .then(res.sendStatus(200))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
     createProject: (req, res) => {
         const {project_name} = req.body;
         req.app.get('db').create_project(project_name)
