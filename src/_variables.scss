@@ -6,6 +6,15 @@ $content-container-color: rgb(68, 68, 68);
 $default-form-size: 300px;
 $form-border: 1px solid rgba(128, 128, 128, 0.5);
 $navbar-size: 50px;
+$dark-error: #920101;
+$light-error: #dd7f7f;
+$light-error-hover: #aa6868;
+$primary-input-background: rgb(130, 130, 130);
+$primary-input-hover: rgb(117, 117, 117);
+$primary-button-background: rgb(130, 130, 130);
+$primary-button-hover: rgb(100, 100, 100);
+$primary-a-color: rgb(0, 144, 228);
+$primary-a-hover: rgb(0, 115, 182);
 
 %primary-header {
     font-size: 30px;
@@ -40,18 +49,30 @@ $navbar-size: 50px;
     margin: 5px;
     text-align: center;
     outline: none;
-    background: rgb(130, 130, 130);
+    background: $primary-input-background;
     color: $primary-header-color;
 }
 @mixin primary-input {
     @extend %primary-input;
 }
+%failed-input {
+    background: $light-error;
+}
+@mixin failed-input {
+    @extend %failed-input;
+}
 
 %primary-input-hover {
-    background: rgb(117, 117, 117);
+    background: $primary-input-hover;
 }
 @mixin primary-input-hover {
     @extend %primary-input-hover;
+}
+%failed-input-hover {
+    background: $light-error-hover;
+}
+@mixin failed-input-hover {
+    @extend %failed-input-hover;
 }
 
 %primary-button {
@@ -59,7 +80,7 @@ $navbar-size: 50px;
     margin: 5px;
     padding: 5px;
     border-radius: 15px;
-    background: rgb(130, 130, 130);
+    background: $primary-button-background;
     color: $primary-header-color;
     outline: none;
 }
@@ -68,7 +89,7 @@ $navbar-size: 50px;
 }
 
 %primary-button-hover {
-    background: rgb(100, 100, 100);
+    background: $primary-button-hover;
 }
 @mixin primary-button-hover {
     @extend %primary-button-hover
@@ -83,7 +104,7 @@ $navbar-size: 50px;
 }
 
 %primary-a-tag {
-    color: rgb(0, 144, 228);
+    color: $primary-a-color;
     outline: none;
 }
 @mixin primary-a-tag {
@@ -91,8 +112,15 @@ $navbar-size: 50px;
 }
 
 %primary-a-tag-hover {
-    color: rgb(0, 115, 182);
+    color: $primary-a-hover;
 }
 @mixin primary-a-tag-hover {
     @extend %primary-a-tag-hover;
+}
+
+%primary-li-error {
+    color: $dark-error
+}
+@mixin primary-li-error {
+    @extend %primary-li-error
 }

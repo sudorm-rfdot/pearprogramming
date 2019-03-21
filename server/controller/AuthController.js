@@ -14,8 +14,8 @@ module.exports = {
         const hash = bcrypt.hashSync(password, salt);
         let newUser = await db.user.register({email, password: hash, username: email});
         newUser = newUser[0];
-        session.user = newUser;
         delete newUser.password;
+        session.user = newUser;
         res.status(201).send(session.user);
     },
     login: async(req, res) => {
@@ -25,7 +25,7 @@ module.exports = {
         let user = await db.user.check_user({email});
         user = user[0];
         if(!user){
-            return res.status(400).send('User not found')
+            return res.status(400).send('Email not found')
         }
         const foundUser = bcrypt.compareSync(password, user.password);
         if(foundUser){
@@ -39,5 +39,14 @@ module.exports = {
     logout: (req, res) => {
         req.session.destroy();
         res.sendStatus(200);
+    },
+    getSessionUser: (req, res) => {
+        const { user } = req.session
+
+        if (user) {
+            res.send(user)
+        } else {
+            res.status(400).send('Could not find session user')
+        }
     }
 };
