@@ -40,8 +40,10 @@ app.put('/auth/updatepassword');
 app.put('/auth/updateprofilepicture');
 app.put('/auth/updateemail');
 app.put('/auth/updateusername');
+app.put('/api/user/:id') //takes the user id, also needs a req.body containing email, username, and password
 
 app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
+app.delete('/api/user/:id', mc.deleteUserProfile) //takes the user id
 
 app.post('/api/compiler', cc.compile);
 
