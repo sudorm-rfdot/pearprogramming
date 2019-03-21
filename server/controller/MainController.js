@@ -28,5 +28,17 @@ module.exports = {
         req.app.get('db').get_user_profile(id)
         .then(profile => res.status(200).send(profile))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    updateUserProfile: (req, res) => {
+        const {email, username, password} = req.body;
+        const {id} = req.params;
+        req.app.get('db').update_profile([email, username, password, id])
+        .then(profile => res.status(200).send(profile))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    deleteUserProfile: (req, res) => {
+        const {id} = req.params;
+        req.app.get('db').delete_profile(id)
+        .then(res.sendStatus(200))
     }
 }
