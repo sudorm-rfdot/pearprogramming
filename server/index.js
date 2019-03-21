@@ -36,6 +36,9 @@ app.post('/auth/login', ac.login);
 app.post('/auth/logout', ac.logout);
 app.post('/auth/verifypassword');
 app.get('/auth/getsessionuser', ac.getSessionUser)
+app.post('/api/project', mc.createProject); //takes the project_name in req.body
+app.post('/api/userproject', mc.userProjectJoin); //takes user_id, password_id, and accepted in req.body
+app.post('/api/files', mc.createProjectFiles); //takes file_name, file_link, and project_id in req.body
 
 app.put('/auth/updatepassword');
 app.put('/auth/updateprofilepicture');
@@ -44,6 +47,7 @@ app.put('/auth/updateusername');
 app.put('/api/user/:id') //takes the user id, also needs a req.body containing email, username, and password
 
 app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
+app.delete('/api/files/:id', mc.deleteProjectFiles) //takes the file id
 app.delete('/api/user/:id', mc.deleteUserProfile) //takes the user id
 
 app.post('/api/compiler', cc.compile);
