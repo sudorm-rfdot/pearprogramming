@@ -1,17 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import axios from 'axios'
 
-class Boxes extends Component {
+const Boxes = (props) => {
 
-  render() {
-    return(
+  return (
+    <div>
       <div>
-        <div>
-          <p>Boxes</p>
-        </div>
+        <p>{props.name}</p>
       </div>
-    )
-  }
+    </div>
+  )
+
 }
 
 export default Boxes
