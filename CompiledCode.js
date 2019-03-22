@@ -1,5 +1,5 @@
-function yah() {
-    console.log('ya')
+function beth() {
+    console.log('plz dont leave')
 }
 
-yah()
+beth()

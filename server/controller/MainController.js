@@ -30,8 +30,8 @@ module.exports = {
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     userProjectJoin: (req, res) => {
-        const {user_id, password_id, accepted} = req.body;
-        req.app.get('db').user_project_join([user_id, password_id, accepted])
+        const {user_id, project_id, accepted} = req.body;
+        req.app.get('db').user_project_join([user_id, project_id, accepted])
         .then(res.sendStatus(200))
     },
     deleteProject: (req, res) => {
