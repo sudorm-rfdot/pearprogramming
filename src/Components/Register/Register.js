@@ -26,11 +26,11 @@ class Register extends Component {
     componentDidMount() {
         const { id } = this.props
         if (id > 0) {
-            this.props.history.push('/home')
+            this.props.history.push('/Home')
         } else {
             axios.get('/auth/getsessionuser')
             .then(res => {
-                    this.props.history.push('/home')
+                    this.props.history.push('/Home')
                 })
                 .catch(error => {})
         }
@@ -41,7 +41,7 @@ class Register extends Component {
         if(newArr.length < 1) {
             axios.post('/auth/register', {email, password})
                 .then(res => {
-                    this.props.history.push('/home')
+                    this.props.history.push('/Home')
                 })
                 .catch(error => {this.setState({errorsList: [error.response.data]})})
         } else {
@@ -96,7 +96,7 @@ class Register extends Component {
                     onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('retype'))]});}}
                 />
                 <button onClick={() => this.handleRegisterButton(email, password, passwordVer)}>Register</button>
-                <p>Already have an account <span><Link to='/'>create one</Link></span></p>
+                <p>Already have an account? <span><Link to='/'>Login!</Link></span></p>
             </div>
         )
     }
