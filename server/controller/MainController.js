@@ -74,8 +74,8 @@ module.exports = {
         const {email} = req.body;
         const {id} = req.params;
         const {user: oldUser} = req.session;
-        let email = req.app.get('db').user.update_profile([email, id])
-        email = email[0];
+        let user_email = req.app.get('db').user.update_profile([email, id])
+        user_email = user_email[0];
         session.user = {...oldUser, email}
         res.send(session.user);
     },
@@ -83,8 +83,8 @@ module.exports = {
         const {username} = req.body;
         const {id} = req.params;
         const {user: oldUser} = req.session;
-        let username = req.app.get('db').user.update_username([username, id])
-        username = username[0]
+        let user_username = req.app.get('db').user.update_username([username, id])
+        user_username = user_username[0]
         session.user = {...oldUser, username}
         res.send(session.user)
     },
