@@ -71,9 +71,16 @@ module.exports = {
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     updateUserProfile: (req, res) => {
-        const {email, username, password} = req.body;
+        const {email} = req.body;
         const {id} = req.params;
-        req.app.get('db').update_profile([email, username, password, id])
+        req.app.get('db').update_profile([email, id])
+        .then(profile => res.status(200).send(profile))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    updateUsername: (req, res) => {
+        const {username} = req.body;
+        const {id} = req.params;
+        req.app.get('db').update_username([username, id])
         .then(profile => res.status(200).send(profile))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
