@@ -5,6 +5,7 @@ const {json} = require('express');
 const massive = require('massive');
 const session = require('express-session');
 var io = require('socket.io')();
+const aws = require('aws-sdk');
 const mc = require('./controller/MainController');
 const cc = require('./controller/CompilerController');
 const ac = require('./controller/AuthController');
@@ -24,6 +25,37 @@ massive(CONNECTION_STRING)
   app.set('db', db)
   const PORT = SERVER_PORT || 3005
   app.listen(PORT, console.log(`Server is running on ${PORT}`))
+})
+
+app.get('/api/signs3', (req, res) => {
+  aws.config = {
+      region: 'us-west-1',
+      accessKeyId: AWS_ACCESS_KEY_ID,
+      secretAccessKey: AWS_SECRET_ACCESS_KEY
+  };
+
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+      Bucket: S3_BUCKET,
+      Key: fileName,
+      ContentType: fileType,
+      ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if (err) {
+          console.log(err);
+          return res.end();
+      }
+      const returnData = {
+          signedRequest: data,
+          url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+      };
+
+      return res.send(returnData);
+  })
 })
 
 app.get('/api/projects/:id', mc.getUserProjects); //takes the users id
