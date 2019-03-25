@@ -1,5 +1,7 @@
 import React, { Component, createRef } from 'react'
 import axios from 'axios'
+import Dropzone from 'react-dropzone';
+import { v4 as randomString } from 'uuid';
 
 import { handleChange } from './../Logic/handleChangeLogic'
 import { handleProfileErrors, handleInputColorUpdate } from './ProfileLogic'
@@ -148,6 +150,48 @@ class Profile extends Component {
             .catch(error => { this.setState({ errorsList: [error.response.data] }) })
     }
 
+    getSignedRequest = ([file]) => {
+        this.setState({ isUploading: true });
+        const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`;
+        axios.get('/api/signs3', {
+            params: {
+              'file-name': fileName,
+              'file-type': file.type,
+            },
+          })
+          .then(response => {
+            const { signedRequest, url } = response.data;
+            this.uploadFile(file, signedRequest, url);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
+    
+      uploadFile = (file, signedRequest, url) => {
+        const options = {
+          headers: {
+            'Content-Type': file.type,
+          },
+        };
+    
+        axios.put(signedRequest, file, options)
+        .catch(err => {
+            this.setState({
+              isUploading: false,
+            });
+            if (err.response.status === 403) {
+              alert(
+                `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
+                  err.stack
+                }`
+              );
+            } else {
+              alert(`ERROR: ${err.status}\n ${err.stack}`);
+            }
+          });
+      };
+
     render() {
         const { emailUpdate, usernameUpdate, passwordUpdate, errorsList, email, oldPassword, password, passwordVer, username, deletePassword, deleteClick, deleteClick2, deleteClick3, deleteClick4 } = this.state
         const errors = errorsList.map((error, index) => {
@@ -158,8 +202,28 @@ class Profile extends Component {
             <div id='profile-component-parent'>
                 {
                     this.state.user.profile_picture ?
-                        <img src={this.state.user.profile_picture} alt={'Profile_Picture'}></img> :
-                        <img src={default_profile_picture} alt={'Profile_Picture'}></img>
+                    <Dropzone
+                    onDropAccepted={this.getSignedRequest}
+                    accept="image/*"
+                    multiple={false}>
+                    {({getRootProps, getInputProps}) => (
+                        <div>
+                            <input {...getInputProps()}/>
+                            <img src={this.state.user.profile_picture} alt={'Profile_Picture'} {...getRootProps()}></img>
+                        </div>
+                    )}
+                    </Dropzone> :
+                    <Dropzone
+                    onDropAccepted={this.getSignedRequest}
+                    accept="image/*"
+                    multiple={false}>
+                    {({getRootProps, getInputProps}) => (
+                        <div>
+                            <input {...getInputProps()}/>
+                            <img src={default_profile_picture} alt={'Profile_Picture'} {...getRootProps()}></img>
+                        </div>
+                    )}
+                    </Dropzone>
                 }
                 <div className='profile-user-info'>
                     {
