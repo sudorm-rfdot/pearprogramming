@@ -44,8 +44,8 @@ app.post('/api/projectrequest', mc.sendProjectRequest); //takes the user_id of t
 
 app.put('/auth/updatepassword');
 app.put('/auth/updateprofilepicture');
-app.put('/auth/updateemail');
-app.put('/auth/updateusername');
+app.put('/auth/updateemail', mc.updateUserProfile);
+app.put('/auth/updateusername', mc.updateUsername);
 app.put('/api/user/:id', mc.updateUserProfile); //takes the user id, also needs a req.body containing email, username, and password
 app.put('/api/pendingrequest/:id', mc.acceptProjectRequest); //takes the user id
 
