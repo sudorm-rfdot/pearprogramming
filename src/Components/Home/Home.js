@@ -6,13 +6,24 @@ class Home extends Component {
   state = {
     createNew: '',
     user_id: '',
-    projects: []
+    projects: [],
+    pendingProjects: []
   }
 
   componentDidMount() {
     this.setState({
       createNew: ''
     })
+    this.getProjects();
+  }
+
+  createProject = () => {
+    this.setState({
+      createNew: !this.state.createNew
+    })
+  }
+
+  getProjects = () => {
     const { id } = this.props
     if (!id) {
       axios.get('/auth/getsessionuser')
@@ -24,7 +35,11 @@ class Home extends Component {
             this.setState({
               projects: res.data
             })
-            console.log(this.state.projects)
+          })
+          axios.get(`/api/pendingprojects/${this.state.user_id}`).then(res => {
+            this.setState({
+              pendingProjects: res.data
+            })
           })
         })
         .catch(error => {
@@ -33,15 +48,8 @@ class Home extends Component {
     }
   }
 
-  createProject = () => {
-    this.setState({
-      createNew: !this.state.createNew
-    })
-  }
-
   render() {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
-      console.log(projectObj)
       return <Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} />
     })
     return (
