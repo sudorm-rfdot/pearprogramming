@@ -39,7 +39,7 @@ class Register extends Component {
     handleRegisterButton(email, password, passwordVer) {
         let newArr = handleRegisterErrors(email, password, passwordVer)
         if(newArr.length < 1) {
-            axios.post('/auth/register', {email, password})
+            axios.post('/auth/register', {email: email.toLowerCase(), password})
                 .then(res => {
                     this.props.history.push('/Home')
                 })

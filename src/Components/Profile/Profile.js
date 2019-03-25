@@ -53,12 +53,54 @@ class Profile extends Component {
     }
 
     componentDidUpdate() {
-        const {errorsList} = this.state
-        handleInputColorUpdate(errorsList, this.emailInput, this.passwordInput, this.passwordVerInput)
+        const { errorsList } = this.state
+        handleInputColorUpdate(errorsList, { emailInput: this.emailInput, usernameInput: this.usernameInput })
+    }
+
+    handleUpdateEmail() {
+        const { email } = this.state
+        const { id } = this.state.user
+        let newArr = handleProfileErrors('email', { email: email.toLowerCase() })
+        if (newArr.length < 1) {
+            axios.put('/auth/updateemail', { email, id })
+                .then(res => {
+                    this.state.user.email = res.data.email
+                    this.setState({
+                        email: '',
+                        emailUpdate: false
+                    })
+                })
+                .catch(error => { this.setState({ errorsList: [error.response.data] }) })
+        } else {
+            this.setState({ errorsList: newArr })
+        }
+    }
+
+    handleUpdateUsername() {
+        const { username } = this.state
+        const { id } = this.state.user
+        let newArr = handleProfileErrors('username', { username })
+        if (newArr.length < 1) {
+            axios.put('/auth/updateusername', { username, id })
+                .then(res => {
+                    this.state.user.username = res.data.username
+                    this.setState({
+                        username: '',
+                        usernameUpdate: false
+                    })
+                })
+                .catch(error => { this.setState({ errorsList: [error.response.data] }) })
+        } else {
+            this.setState({ errorsList: newArr })
+        }
     }
 
     render() {
         const { emailUpdate, usernameUpdate, passwordUpdate, errorsList, email, oldPassword, password, passwordVer, username, deletePassword, deleteClick, deleteClick2, deleteClick3, deleteClick4 } = this.state
+        const errors = errorsList.map((error, index) => {
+            return <li key={index}>{error}</li>
+        })
+
         return (
             <div id='profile-component-parent'>
                 {
@@ -68,11 +110,20 @@ class Profile extends Component {
                 }
                 <div className='profile-user-info'>
                     {
+                        errorsList ?
+                            <ul>
+                                {errors}
+                            </ul>
+                            :
+                            null
+                    }
+
+                    {
                         !emailUpdate ?
                             <div>
                                 <h1>Email</h1>
                                 <h2>{this.state.user.email}</h2>
-                                <button onClick={() => this.setState({ emailUpdate: true })}>Edit</button>
+                                <button onClick={() => this.setState({ emailUpdate: true, usernameUpdate: false, passwordUpdate: false, deleteClick4: false })}>Edit</button>
                             </div>
                             :
                             <div>
@@ -87,8 +138,8 @@ class Profile extends Component {
                                     onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('email'))] }); }}
                                 />
                                 <span>
-                                    <button onClick={() => this.setState({ emailUpdate: false, email: '' })}>Cancel</button>
-                                    <button>Save</button>
+                                    <button onClick={() => this.setState({ emailUpdate: false, email: '', errorsList: [] })}>Cancel</button>
+                                    <button onClick={() => this.handleUpdateEmail()}>Save</button>
                                 </span>
                             </div>
                     }
@@ -98,7 +149,7 @@ class Profile extends Component {
                             <div>
                                 <h1>Username</h1>
                                 <h2>{this.state.user.username}</h2>
-                                <button onClick={() => this.setState({ usernameUpdate: true })}>Edit</button>
+                                <button onClick={() => this.setState({ emailUpdate: false, usernameUpdate: true, passwordUpdate: false, deleteClick4: false })}>Edit</button>
                             </div>
                             :
                             <div>
@@ -113,8 +164,8 @@ class Profile extends Component {
                                     onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'username'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => element.toLowerCase().includes('username'))] }); }}
                                 />
                                 <span>
-                                    <button onClick={() => this.setState({ usernameUpdate: false, username: '' })}>Cancel</button>
-                                    <button>Save</button>
+                                    <button onClick={() => this.setState({ usernameUpdate: false, username: '', errorsList: [] })}>Cancel</button>
+                                    <button onClick={() => this.handleUpdateUsername()}>Save</button>
                                 </span>
                             </div>
                     }
@@ -124,7 +175,7 @@ class Profile extends Component {
                             <div>
                                 <h1>Password</h1>
                                 <h2>Password not shown</h2>
-                                <button onClick={() => this.setState({ passwordUpdate: true })}>Edit</button>
+                                <button onClick={() => this.setState({ emailUpdate: false, usernameUpdate: false, passwordUpdate: true })}>Edit</button>
                             </div>
                             :
                             <div>
@@ -161,7 +212,7 @@ class Profile extends Component {
                             </div>
                     }
 
-                    <button className='delete-button' onClick={() => {if(!deleteClick && !deleteClick2 && !deleteClick3 && !deleteClick4){this.setState({ deleteClick: true })}}}>Delete Account</button>
+                    <button className='delete-button' onClick={() => { if (!deleteClick && !deleteClick2 && !deleteClick3 && !deleteClick4) { this.setState({ deleteClick: true }) } }}>Delete Account</button>
                     {
                         this.state.deleteClick ?
                             <div>

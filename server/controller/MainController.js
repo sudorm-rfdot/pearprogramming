@@ -72,7 +72,8 @@ module.exports = {
     },
     updateUserProfile: (req, res) => {
         const {email} = req.body;
-        const {id} = req.params;
+        const {id} = req.body;
+        const { session } = req
         const {user: oldUser} = req.session;
         let user_email = req.app.get('db').user.update_profile([email, id])
         user_email = user_email[0];
@@ -82,6 +83,7 @@ module.exports = {
     updateUsername: (req, res) => {
         const {username} = req.body;
         const {id} = req.params;
+        const { session } = req
         const {user: oldUser} = req.session;
         let user_username = req.app.get('db').user.update_username([username, id])
         user_username = user_username[0]
