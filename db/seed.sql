@@ -23,3 +23,10 @@ create table if not exists users_projects_join (
     project_id int references projects(id),
     accepted boolean
 );
+
+alter table users
+alter column username type varchar(250);
+
+ALTER TABLE users 
+ADD CONSTRAINT unique_email 
+UNIQUE (email);
