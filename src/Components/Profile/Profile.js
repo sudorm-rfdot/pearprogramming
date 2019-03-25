@@ -12,6 +12,7 @@ class Profile extends Component {
     constructor(props) {
         super(props)
 
+        this.oldPasswordInput = createRef()
         this.passwordInput = createRef()
         this.passwordVerInput = createRef()
         this.emailInput = createRef()
@@ -54,13 +55,22 @@ class Profile extends Component {
 
     componentDidUpdate() {
         const { errorsList } = this.state
-        handleInputColorUpdate(errorsList, { emailInput: this.emailInput, usernameInput: this.usernameInput })
+        handleInputColorUpdate(errorsList, {
+            emailInput: this.emailInput,
+            usernameInput: this.usernameInput,
+            oldPasswordInput: this.oldPasswordInput,
+            passwordInput: this.passwordInput,
+            passwordVerInput: this.passwordVerInput,
+            deletePasswordInput: this.deletePassword
+        })
     }
 
     handleUpdateEmail() {
         const { email } = this.state
         const { id } = this.state.user
+
         let newArr = handleProfileErrors('email', { email: email.toLowerCase() })
+
         if (newArr.length < 1) {
             axios.put('/auth/updateemail', { email, id })
                 .then(res => {
@@ -79,7 +89,9 @@ class Profile extends Component {
     handleUpdateUsername() {
         const { username } = this.state
         const { id } = this.state.user
+
         let newArr = handleProfileErrors('username', { username })
+
         if (newArr.length < 1) {
             axios.put('/auth/updateusername', { username, id })
                 .then(res => {
@@ -93,6 +105,47 @@ class Profile extends Component {
         } else {
             this.setState({ errorsList: newArr })
         }
+    }
+
+    handleUpdatePassword() {
+        const { oldPassword, password, passwordVer } = this.state
+        const { id } = this.state.user
+
+        axios.post('/auth/verifypassword', { password: oldPassword, id })
+            .then(() => {
+                let newArr = handleProfileErrors('password', { password, passwordVer })
+
+                if (newArr.length < 1) {
+                    axios.put('/auth/updatepassword', { password, id })
+                        .then(res => {
+                            this.setState({
+                                oldPassword: '',
+                                password: '',
+                                passwordVer: '',
+                                passwordUpdate: false
+                            })
+                        })
+                        .catch(error => { this.setState({ errorsList: [error.response.data] }) })
+                } else {
+                    this.setState({ errorsList: newArr })
+                }
+            })
+            .catch(error => { this.setState({ errorsList: [error.response.data] }) })
+    }
+
+    handleDeleteAccount() {
+        const { deletePassword: password } = this.state
+        const { id } = this.state.user
+
+        axios.post('/auth/verifypassword', { password, id })
+            .then(() => {
+                axios.delete(`/api/user/${id}`)
+                    .then(() => {
+                        this.props.history.push('/')
+                    })
+                    .catch(err => { console.log(err) })
+            })
+            .catch(error => { this.setState({ errorsList: [error.response.data] }) })
     }
 
     render() {
@@ -123,7 +176,7 @@ class Profile extends Component {
                             <div>
                                 <h1>Email</h1>
                                 <h2>{this.state.user.email}</h2>
-                                <button onClick={() => this.setState({ emailUpdate: true, usernameUpdate: false, passwordUpdate: false, deleteClick4: false })}>Edit</button>
+                                <button onClick={() => this.setState({ emailUpdate: true, usernameUpdate: false, passwordUpdate: false, deleteClick4: false, errorsList: [] })}>Edit</button>
                             </div>
                             :
                             <div>
@@ -135,7 +188,7 @@ class Profile extends Component {
                                     type='email'
                                     maxLength='250'
                                     value={email}
-                                    onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('email'))] }); }}
+                                    onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => element.toLowerCase().includes('already') ? !element.toLowerCase().includes('already') : !element.toLowerCase().includes('email'))] }); }}
                                 />
                                 <span>
                                     <button onClick={() => this.setState({ emailUpdate: false, email: '', errorsList: [] })}>Cancel</button>
@@ -149,7 +202,7 @@ class Profile extends Component {
                             <div>
                                 <h1>Username</h1>
                                 <h2>{this.state.user.username}</h2>
-                                <button onClick={() => this.setState({ emailUpdate: false, usernameUpdate: true, passwordUpdate: false, deleteClick4: false })}>Edit</button>
+                                <button onClick={() => this.setState({ emailUpdate: false, usernameUpdate: true, passwordUpdate: false, deleteClick4: false, errorsList: [] })}>Edit</button>
                             </div>
                             :
                             <div>
@@ -175,7 +228,7 @@ class Profile extends Component {
                             <div>
                                 <h1>Password</h1>
                                 <h2>Password not shown</h2>
-                                <button onClick={() => this.setState({ emailUpdate: false, usernameUpdate: false, passwordUpdate: true })}>Edit</button>
+                                <button onClick={() => this.setState({ emailUpdate: false, usernameUpdate: false, passwordUpdate: true, deleteClick4: false, errorsList: [] })}>Edit</button>
                             </div>
                             :
                             <div>
@@ -195,7 +248,7 @@ class Profile extends Component {
                                     type='password'
                                     maxLength='40'
                                     value={password}
-                                    onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => element.toLowerCase().includes('retype') ? true : !element.toLowerCase().includes('password'))] }); }}
+                                    onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => (element.toLowerCase().includes('retype') || element.toLowerCase().includes('incorrect')) ? true : !element.toLowerCase().includes('password'))] }); }}
                                 />
                                 <input
                                     ref={this.passwordVerInput}
@@ -206,8 +259,8 @@ class Profile extends Component {
                                     onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('retype'))] }); }}
                                 />
                                 <span>
-                                    <button onClick={() => this.setState({ passwordUpdate: false, oldPassword: '', passwordVer: '', password: '' })}>Cancel</button>
-                                    <button>Save</button>
+                                    <button onClick={() => this.setState({ passwordUpdate: false, oldPassword: '', passwordVer: '', password: '', errorsList: [] })}>Cancel</button>
+                                    <button onClick={() => this.handleUpdatePassword()}>Save</button>
                                 </span>
                             </div>
                     }
@@ -242,7 +295,7 @@ class Profile extends Component {
                             <div>
                                 <h2>Ok then, click no to continue.</h2>
                                 <span>
-                                    <button className='delete-button' onClick={() => this.setState({ deleteClick3: false, deleteClick4: true })}>No</button>
+                                    <button className='delete-button' onClick={() => this.setState({ deleteClick3: false, deleteClick4: true, emailUpdate: false, usernameUpdate: false, passwordUpdate: false, errorsList: [] })}>No</button>
                                     <button onClick={() => this.setState({ deleteClick3: false })}>Yes</button>
                                 </span>
                             </div>
@@ -263,7 +316,7 @@ class Profile extends Component {
                                 />
                                 <span>
                                     <button onClick={() => this.setState({ deleteClick4: false, deletePassword: '' })}>Cancel</button>
-                                    <button className='delete-button'>Delete</button>
+                                    <button className='delete-button' onClick={() => this.handleDeleteAccount()}>Delete</button>
                                 </span>
                             </div>
                             :

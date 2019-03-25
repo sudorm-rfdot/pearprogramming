@@ -51,7 +51,7 @@ class Register extends Component {
 
     componentDidUpdate() {
         const {errorsList} = this.state
-        handleInputColorUpdate(errorsList, this.emailInput, this.passwordInput, this.passwordVerInput)
+        handleInputColorUpdate(errorsList, {emailInput: this.emailInput, passwordInput: this.passwordInput, passwordVerInput: this.passwordVerInput})
     }
 
     render() {

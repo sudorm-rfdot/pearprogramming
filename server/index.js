@@ -35,7 +35,7 @@ app.get('/api/profile/:id', mc.getUserProfile); //takes the user id
 app.post('/auth/register', ac.register);
 app.post('/auth/login', ac.login);
 app.post('/auth/logout', ac.logout);
-app.post('/auth/verifypassword');
+app.post('/auth/verifypassword', ac.verifyPassword);
 app.get('/auth/getsessionuser', ac.getSessionUser)
 app.post('/api/project', mc.createProject); //takes the project_name in req.body
 app.post('/api/userproject', mc.userProjectJoin); //takes user_id, password_id, and accepted in req.body

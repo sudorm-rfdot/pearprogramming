@@ -38,7 +38,6 @@ export function handleProfileErrors(name, obj) {
             }
 
             break;
-        case (name === 'delete'):
         default:
             break;
     }
@@ -47,15 +46,19 @@ export function handleProfileErrors(name, obj) {
 }
 
 export function handleInputColorUpdate(errorsList, obj) {
-    const { emailInput, usernameInput } = obj
+    const { emailInput, usernameInput, oldPasswordInput, passwordInput, passwordVerInput, deletePasswordInput } = obj
 
     if (errorsList) {
         let str = errorsList.toString().toLowerCase()
 
         if (emailInput && emailInput.current) {
-            if ((str.includes('email') || str.includes('already')) && !emailInput.current.classList.contains('input-error')) {
+            let emailError = str.split(',').filter((element) => {
+                return (element.toLowerCase().includes('email') || element.toLowerCase().includes('already'))
+            })
+            emailError = emailError.toString().toLowerCase()
+            if ((emailError.includes('email') || emailError.includes('already')) && !emailInput.current.classList.contains('input-error')) {
                 emailInput.current.classList.add('input-error')
-            } else if ((!str.includes('email') || !str.includes('already'))) {
+            } else if ((!emailError.includes('email') || !emailError.includes('already'))) {
                 emailInput.current.classList.remove('input-error')
             }
 
@@ -73,6 +76,56 @@ export function handleInputColorUpdate(errorsList, obj) {
 
             if (errorsList.length === 0 && usernameInput.current.classList.contains('input-error')) {
                 usernameInput.current.classList.remove('input-error')
+            }
+        }
+
+        if (passwordInput && passwordInput.current) {
+            let passwordError = str.split(',').filter((element) => {
+                return (element.toLowerCase().includes('retype') || element.toLowerCase().includes('incorrect')) ? false : element.toLowerCase().includes('password')
+            })
+            let passwordVerError = str.split(',').filter((element) => {
+                return (element.toLowerCase().includes('retype') || element.toLowerCase().includes('match'))
+            })
+
+
+            passwordError = passwordError.toString().toLowerCase()
+            if(passwordError.includes('password') && !passwordInput.current.classList.contains('input-error')) {
+                passwordInput.current.classList.add('input-error')
+            } else if (!passwordError.includes('password')) {
+                passwordInput.current.classList.remove('input-error')
+            }
+    
+            passwordVerError = passwordVerError.toString().toLowerCase()
+            if((passwordVerError.includes('retype') || passwordVerError.includes('match')) && !passwordVerInput.current.classList.contains('input-error')) {
+                passwordVerInput.current.classList.add('input-error')
+            } else if (!passwordVerError.includes('retype') || !passwordVerError.includes('retype')){
+                passwordVerInput.current.classList.remove('input-error')
+            }
+        }
+
+        if (oldPasswordInput && oldPasswordInput.current) {
+            let oldPasswordError = str.split(',').filter((element) => {
+                return element.toLowerCase().includes('incorrect')
+            })
+
+            oldPasswordError = oldPasswordError.toString().toLowerCase()
+            if(oldPasswordError.includes('incorrect') && !oldPasswordInput.current.classList.contains('input-error')) {
+                oldPasswordInput.current.classList.add('input-error')
+            } else if (!oldPasswordError.includes('incorrect')){
+                oldPasswordInput.current.classList.remove('input-error')
+            }
+        }
+
+        if (deletePasswordInput && deletePasswordInput.current) {
+            let deletePasswordError = str.split(',').filter((element) => {
+                return element.toLowerCase().includes('incorrect')
+            })
+
+            deletePasswordError = deletePasswordError.toString().toLowerCase()
+            if(deletePasswordError.includes('incorrect') && !deletePasswordInput.current.classList.contains('input-error')) {
+                deletePasswordInput.current.classList.add('input-error')
+            } else if (!deletePasswordError.includes('incorrect')){
+                deletePasswordInput.current.classList.remove('input-error')
             }
         }
     }
