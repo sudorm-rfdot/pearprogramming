@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Boxes from './../Boxes/Boxes';
 import NewBox from './../Boxes/NewBox';
+import PendingBox from './../Boxes/PendingBox';
 import axios from 'axios'
 class Home extends Component {
   state = {
@@ -52,11 +53,15 @@ class Home extends Component {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
       return <Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} />
     })
+    const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
+      return <PendingBox key={i} id={pendingObj.project_id} name = {pendingObj.project_name} />
+    })
     return (
       <main>
         <button onClick={this.createProject}>{this.state.createNew ? 'cancel' : 'create new'}</button>
         {(this.state.createNew) && <NewBox id={this.state.user_id} />}
         {mappedProjects}
+        {mappedPending}
       </main>
     )
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Boxes = (props) => {
+const PendingBox = (props) => {
 
   return (
     <div>
@@ -12,4 +12,4 @@ const Boxes = (props) => {
 
 }
 
-export default Boxes
+export default PendingBox;
