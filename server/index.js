@@ -42,7 +42,7 @@ app.post('/api/userproject', mc.userProjectJoin); //takes user_id, password_id, 
 app.post('/api/files', mc.createProjectFiles); //takes file_name, file_link, and project_id in req.body
 app.post('/api/projectrequest', mc.sendProjectRequest); //takes the user_id of the user getting sent the request, as well as the project_id in req.body
 
-app.put('/auth/updatepassword');
+app.put('/auth/updatepassword', ac.updatePassword);
 app.put('/auth/updateprofilepicture');
 app.put('/auth/updateemail', mc.updateUserProfile);
 app.put('/auth/updateusername', mc.updateUsername);
