@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
 import Boxes from './../Boxes/Boxes';
 import NewBox from './../Boxes/NewBox';
+import PendingBox from './../Boxes/PendingBox';
 import axios from 'axios'
 class Home extends Component {
   state = {
     createNew: '',
     user_id: '',
-    projects: []
+    projects: [],
+    pendingProjects: []
   }
 
   componentDidMount() {
     this.setState({
       createNew: ''
     })
+    this.getProjects();
+  }
+
+  createProject = () => {
+    this.setState({
+      createNew: !this.state.createNew
+    })
+  }
+
+  getProjects = () => {
     const { id } = this.props
     if (!id) {
       axios.get('/auth/getsessionuser')
@@ -24,7 +36,11 @@ class Home extends Component {
             this.setState({
               projects: res.data
             })
-            console.log(this.state.projects)
+          })
+          axios.get(`/api/pendingprojects/${this.state.user_id}`).then(res => {
+            this.setState({
+              pendingProjects: res.data
+            })
           })
         })
         .catch(error => {
@@ -33,22 +49,19 @@ class Home extends Component {
     }
   }
 
-  createProject = () => {
-    this.setState({
-      createNew: !this.state.createNew
-    })
-  }
-
   render() {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
-      console.log(projectObj)
       return <Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} />
+    })
+    const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
+      return <PendingBox key={i} id={pendingObj.project_id} name = {pendingObj.project_name} />
     })
     return (
       <main>
         <button onClick={this.createProject}>{this.state.createNew ? 'cancel' : 'create new'}</button>
         {(this.state.createNew) && <NewBox id={this.state.user_id} />}
         {mappedProjects}
+        {mappedPending}
       </main>
     )
 
