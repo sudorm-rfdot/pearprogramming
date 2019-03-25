@@ -70,18 +70,26 @@ module.exports = {
         .then(profile => res.status(200).send(profile))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
-    updateUserProfile: (req, res) => {
+    updateUserProfile: async (req, res) => {
         const {email} = req.body;
-        const {id} = req.params;
+        const {id} = req.body;
+        const db = req.app.get('db');
+        const { session } = req
         const {user: oldUser} = req.session;
-        let user_email = req.app.get('db').user.update_profile([email, id])
+        let user = await db.user.check_user({email});
+        user = user[0];
+        if(user){
+            return res.status(400).send('User already exists')
+        }
+        let user_email = db.user.update_profile([email, id])
         user_email = user_email[0];
         session.user = {...oldUser, email}
         res.send(session.user);
     },
     updateUsername: (req, res) => {
         const {username} = req.body;
-        const {id} = req.params;
+        const {id} = req.body;
+        const { session } = req
         const {user: oldUser} = req.session;
         let user_username = req.app.get('db').user.update_username([username, id])
         user_username = user_username[0]
@@ -90,6 +98,7 @@ module.exports = {
     },
     deleteUserProfile: (req, res) => {
         const {id} = req.params;
+        req.session.destroy()
         req.app.get('db').user.delete_profile(id)
         .then(res.sendStatus(200))
     }

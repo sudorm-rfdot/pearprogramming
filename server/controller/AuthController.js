@@ -54,7 +54,7 @@ module.exports = {
         const db = req.app.get('db');
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
-        db.updatePassword(hash, id)
+        db.user.update_password(hash, id)
         res.sendStatus(200);
     },
     verifyPassword: async(req, res) => {

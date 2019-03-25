@@ -39,7 +39,7 @@ class Register extends Component {
     handleRegisterButton(email, password, passwordVer) {
         let newArr = handleRegisterErrors(email, password, passwordVer)
         if(newArr.length < 1) {
-            axios.post('/auth/register', {email, password})
+            axios.post('/auth/register', {email: email.toLowerCase(), password})
                 .then(res => {
                     this.props.history.push('/Home')
                 })
@@ -51,7 +51,7 @@ class Register extends Component {
 
     componentDidUpdate() {
         const {errorsList} = this.state
-        handleInputColorUpdate(errorsList, this.emailInput, this.passwordInput, this.passwordVerInput)
+        handleInputColorUpdate(errorsList, {emailInput: this.emailInput, passwordInput: this.passwordInput, passwordVerInput: this.passwordVerInput})
     }
 
     render() {
