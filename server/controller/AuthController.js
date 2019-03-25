@@ -48,5 +48,25 @@ module.exports = {
         } else {
             res.status(400).send('Could not find session user')
         }
+    },
+    updatePassword: async(req, res) => {
+        const {id, password} = req.body;
+        const db = req.app.get('db');
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+        db.updatePassword(hash, id)
+        res.sendStatus(200);
+    },
+    verifyPassword: async(req, res) => {
+        const {id, password} = req.body;
+        const db = req.app.get('db');
+        let user = await db.user.check_password(id)
+        user = user[0];
+        const foundUser = bcrypt.compareSync(password, user.password)
+        if(foundUser){
+            res.sendStatus(200)
+        } else {
+            res.status(401).send('Incorrect Password')
+        }
     }
 };

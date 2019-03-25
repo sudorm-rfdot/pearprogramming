@@ -73,20 +73,24 @@ module.exports = {
     updateUserProfile: (req, res) => {
         const {email} = req.body;
         const {id} = req.params;
-        req.app.get('db').update_profile([email, id])
-        .then(profile => res.status(200).send(profile))
-        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+        const {user: oldUser} = req.session;
+        let email = req.app.get('db').user.update_profile([email, id])
+        email = email[0];
+        session.user = {...oldUser, email}
+        res.send(session.user);
     },
     updateUsername: (req, res) => {
         const {username} = req.body;
         const {id} = req.params;
-        req.app.get('db').update_username([username, id])
-        .then(profile => res.status(200).send(profile))
-        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+        const {user: oldUser} = req.session;
+        let username = req.app.get('db').user.update_username([username, id])
+        username = username[0]
+        session.user = {...oldUser, username}
+        res.send(session.user)
     },
     deleteUserProfile: (req, res) => {
         const {id} = req.params;
-        req.app.get('db').delete_profile(id)
+        req.app.get('db').user.delete_profile(id)
         .then(res.sendStatus(200))
     }
 }
