@@ -77,7 +77,7 @@ class Register extends Component {
                     type='email'
                     maxLength='250'
                     value={email}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('email'))]});}}
+                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => (element.toLowerCase().includes('already') ? !element.toLowerCase().includes('already') : !element.toLowerCase().includes('email')))]});}}
                 />
                 <input
                     ref={this.passwordInput}

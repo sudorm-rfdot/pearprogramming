@@ -71,8 +71,12 @@
             @include failed-input-hover;
         }
         .delete-button {
-            color: $dark-error;
+            background: $dark-error;
             margin-bottom: 5px;
+            color: $primary-header-color;
+        }
+        .delete-button:hover, .delete-button:active {
+            background: $dark-error-hover;
         }
         span {
             button {

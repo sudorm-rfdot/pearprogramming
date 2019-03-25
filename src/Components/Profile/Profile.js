@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react'
 import axios from 'axios'
 
 import { handleChange } from './../Logic/handleChangeLogic'
+import { handleProfileErrors, handleInputColorUpdate } from './ProfileLogic'
 
 import default_profile_picture from './../../resources/blank_profile_pic.png'
 
@@ -15,6 +16,7 @@ class Profile extends Component {
         this.passwordVerInput = createRef()
         this.emailInput = createRef()
         this.usernameInput = createRef()
+        this.deletePassword = createRef()
 
         this.state = {
             user: {},
@@ -26,7 +28,12 @@ class Profile extends Component {
             passwordUpdate: false,
             oldPassword: '',
             password: '',
-            passwordVer: ''
+            passwordVer: '',
+            deleteClick: false,
+            deleteClick2: false,
+            deleteClick3: false,
+            deleteClick4: false,
+            deletePassword: ''
         }
     }
 
@@ -45,8 +52,13 @@ class Profile extends Component {
         }
     }
 
+    componentDidUpdate() {
+        const {errorsList} = this.state
+        handleInputColorUpdate(errorsList, this.emailInput, this.passwordInput, this.passwordVerInput)
+    }
+
     render() {
-        const { emailUpdate, usernameUpdate, passwordUpdate, errorsList, email, oldPassword, password, passwordVer, username } = this.state
+        const { emailUpdate, usernameUpdate, passwordUpdate, errorsList, email, oldPassword, password, passwordVer, username, deletePassword, deleteClick, deleteClick2, deleteClick3, deleteClick4 } = this.state
         return (
             <div id='profile-component-parent'>
                 {
@@ -143,13 +155,69 @@ class Profile extends Component {
                                     onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('retype'))] }); }}
                                 />
                                 <span>
-                                    <button onClick={() => this.setState({ passwordUpdate: false, passwordVer: '', password: '' })}>Cancel</button>
+                                    <button onClick={() => this.setState({ passwordUpdate: false, oldPassword: '', passwordVer: '', password: '' })}>Cancel</button>
                                     <button>Save</button>
                                 </span>
                             </div>
                     }
 
-                    <button className='delete-button'>Delete Account</button>
+                    <button className='delete-button' onClick={() => {if(!deleteClick && !deleteClick2 && !deleteClick3 && !deleteClick4){this.setState({ deleteClick: true })}}}>Delete Account</button>
+                    {
+                        this.state.deleteClick ?
+                            <div>
+                                <h2>Are you sure?</h2>
+                                <span>
+                                    <button onClick={() => this.setState({ deleteClick: false })}>No</button>
+                                    <button className='delete-button' onClick={() => this.setState({ deleteClick: false, deleteClick2: true })}>Yes</button>
+                                </span>
+                            </div>
+                            :
+                            null
+                    }
+                    {
+                        this.state.deleteClick2 ?
+                            <div>
+                                <h2>Are you really sure?</h2>
+                                <span>
+                                    <button onClick={() => this.setState({ deleteClick2: false })}>No</button>
+                                    <button className='delete-button' onClick={() => this.setState({ deleteClick2: false, deleteClick3: true })}>Yes</button>
+                                </span>
+                            </div>
+                            :
+                            null
+                    }
+                    {
+                        this.state.deleteClick3 ?
+                            <div>
+                                <h2>Ok then, click no to continue.</h2>
+                                <span>
+                                    <button className='delete-button' onClick={() => this.setState({ deleteClick3: false, deleteClick4: true })}>No</button>
+                                    <button onClick={() => this.setState({ deleteClick3: false })}>Yes</button>
+                                </span>
+                            </div>
+                            :
+                            null
+                    }
+                    {
+                        this.state.deleteClick4 ?
+                            <div>
+                                <h2>RIP {this.state.user.username}</h2>
+                                <input
+                                    ref={this.deletePassword}
+                                    placeholder='Password'
+                                    type='password'
+                                    maxLength='40'
+                                    value={deletePassword}
+                                    onChange={(e) => { let newObj = handleChange(this.state, e.target.value, 'deletePassword'); this.setState({ ...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('incorrect'))] }); }}
+                                />
+                                <span>
+                                    <button onClick={() => this.setState({ deleteClick4: false, deletePassword: '' })}>Cancel</button>
+                                    <button className='delete-button'>Delete</button>
+                                </span>
+                            </div>
+                            :
+                            null
+                    }
                 </div>
             </div>
         )

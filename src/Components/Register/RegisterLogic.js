@@ -1,11 +1,4 @@
-function checkEmail(email) 
-{
-    // eslint-disable-next-line
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        return true
-    }
-    return false
-}
+import { checkEmail } from './../Logic/checkEmailLogic'
 
 export function handleRegisterErrors(email, password, passwordVer) {
     let newArr = []
@@ -56,9 +49,9 @@ export function handleInputColorUpdate(errorsList, emailInput, passwordInput, pa
             passwordVerInput.current.classList.remove('input-error')
         }
 
-        if(str.includes('email') && !emailInput.current.classList.contains('input-error')) {
+        if((str.includes('email') || str.includes('already')) && !emailInput.current.classList.contains('input-error')) {
             emailInput.current.classList.add('input-error')
-        } else if (!str.includes('email')) {
+        } else if (!str.includes('email') || !str.includes('already')) {
             emailInput.current.classList.remove('input-error')
         }
 
