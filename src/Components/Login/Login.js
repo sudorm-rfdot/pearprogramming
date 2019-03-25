@@ -24,11 +24,11 @@ class Login extends Component {
     componentDidMount() {
         const { id } = this.props
         if (id > 0) {
-            this.props.history.push('/home')
+            this.props.history.push('/Home')
         } else {
             axios.get('/auth/getsessionuser')
             .then(res => {
-                    this.props.history.push('/home')
+                    this.props.history.push('/Home')
                 })
                 .catch(error => {})
         }
@@ -39,7 +39,7 @@ class Login extends Component {
         if(newArr.length < 1) {
             axios.post('/auth/login', { email, password })
                 .then(res => {
-                    this.props.history.push('/home')
+                    this.props.history.push('/Home')
                 })
                 .catch((error) => {this.setState({errorsList: [error.response.data]})})
         } else {
@@ -86,7 +86,7 @@ class Login extends Component {
                     onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('password'))]});}}
                 />
                 <button onClick={() => this.handleLoginButton(email, password)}>Login</button>
-                <p>Don't have an account <span><Link to='/register'>create one</Link></span></p>
+                <p>Don't have an account? <span><Link to='/register'>Create one!</Link></span></p>
             </div>
         )
     }

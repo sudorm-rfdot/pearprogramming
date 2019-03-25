@@ -4,6 +4,8 @@ import Login from './Components/Login/Login';
 import Editor from './Components/Editor/Editor';
 import Register from './Components/Register/Register';
 import Profile from './Components/Profile/Profile'
+import Home from './Components/Home/Home'
+import Projects from './Components/Projects/Projects'
 
 export default(
   <Switch>
@@ -11,5 +13,7 @@ export default(
     <Route path='/Editor' component={Editor} />
     <Route path='/Register' component={Register} />
     <Route path='/Profile' component={Profile} />
+    <Route path='/Home' component={Home} />
+    <Route path='/Projects' component={Projects} />
   </Switch>
 )
