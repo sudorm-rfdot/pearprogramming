@@ -3,6 +3,8 @@ import Boxes from './../Boxes/Boxes';
 import NewBox from './../Boxes/NewBox';
 import PendingBox from './../Boxes/PendingBox';
 import axios from 'axios'
+import {Link} from 'react-router-dom'
+
 class Home extends Component {
   state = {
     createNew: '',
@@ -51,7 +53,7 @@ class Home extends Component {
 
   render() {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
-      return <Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} />
+      return <Link to='/Project'><Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} /></Link>
     })
     const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
       return <PendingBox key={i} id={pendingObj.project_id} name = {pendingObj.project_name} />
