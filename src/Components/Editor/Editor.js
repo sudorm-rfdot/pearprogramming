@@ -32,7 +32,6 @@ class Editor extends Component {
     console.log('editor did mount', monaco)
   }
 
-
   onChange = (newValue, e) => {
     this.socket.emit('update text', newValue)
     this.setState({code: newValue});
@@ -85,16 +84,18 @@ class Editor extends Component {
       <div className='editor_page'>
       <section className='editor_container'>
       <div className='editor_buttons'>
-        <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
-          <option value='vs-dark' defaultValue>Dark</option>
-          <option value='vs-light'>Light</option>
-        </select>
+        <div className='selectors'>
+          <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
+            <option value='vs-dark' defaultValue>Dark</option>
+            <option value='vs-light'>Light</option>
+          </select>
 
-        <select  value={this.state.language} onChange={e => this.changeLang(e.target.value)}>
-          <option value='javascript'>JavaScript</option>
-          <option value='html'>HTML</option>
-          <option value='css'>CSS</option>
-        </select>
+          <select  value={this.state.language} onChange={e => this.changeLang(e.target.value)}>
+            <option value='javascript'>JavaScript</option>
+            <option value='html'>HTML</option>
+            <option value='css'>CSS</option>
+          </select>
+        </div>
         <button className='run' onClick={this.compile}>Run</button>
       </div>
         <MonacoEditor

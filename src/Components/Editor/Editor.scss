@@ -33,6 +33,7 @@ section h3
 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .run
 {
@@ -44,4 +45,12 @@ section h3
   border-radius: 3px;
   border: 2px solid black;
   margin-right: 14px;
+}
+.selectors
+{
+  margin-left: 15px;
+}
+.selectors select
+{
+  margin: 5px;
 }
