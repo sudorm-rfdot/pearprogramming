@@ -53,7 +53,7 @@ class Home extends Component {
 
   render() {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
-      return <Link to='/Project'><Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} /></Link>
+      return <Link to= {`/Projects/${projectObj.project_id}`}><Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} /></Link>
     })
     const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
       return <PendingBox key={i} id={pendingObj.project_id} name = {pendingObj.project_name} />

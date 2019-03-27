@@ -82,8 +82,10 @@ class Editor extends Component {
       
     };
     return (
-      <div>
-      <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
+      <div className='editor_page'>
+      <section className='editor_container'>
+      <div className='editor_buttons'>
+        <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
           <option value='vs-dark' defaultValue>Dark</option>
           <option value='vs-light'>Light</option>
         </select>
@@ -93,10 +95,11 @@ class Editor extends Component {
           <option value='html'>HTML</option>
           <option value='css'>CSS</option>
         </select>
-        {this.state.console}
+        <button className='run' onClick={this.compile}>Run</button>
+      </div>
         <MonacoEditor
-          width="1000"
-          height="800"
+          width="100%"
+          height="100vh"
           language={language}
           value={code}
           options={options}
@@ -104,7 +107,12 @@ class Editor extends Component {
           onChange={this.onChange}
           requireConfig={requireConfig}
         />
-        <button onClick={this.compile}>I'm hopefully finna run this ish</button>
+      </section>
+      <section className='console_container'>
+        <h3 className='console_padding'>console: {'<>'}</h3>
+        <p className='console_padding'>{this.state.console}</p>
+
+      </section>
       </div>
     );
   }
