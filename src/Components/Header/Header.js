@@ -1,21 +1,19 @@
 import React from 'react'
 import './Header.scss'
 import Logo from './../../resources/pearprogramming.png'
-import {Link, withRouter} from 'react-router-dom'
-import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import LoggedIn from './LoggedIn'
+import LoggedOut from './LoggedOut'
 
 const Header = (props) => {
-
-    const logout = () => {
-        axios.post('/auth/logout').then(() => {
-            props.history.push('/')
-        })
-    }    
-
+    const { pathname } = props.location
     return (
         <nav id='header-parent'>
-            <Link to='/Home'><img src={Logo} alt="PearProgrammingLogo"/></Link>
-            <button onClick={logout}>Logout</button>
+            {
+                (pathname !== '/' && pathname !== '/register') ?
+                    <LoggedIn logo={Logo}/> :
+                    <LoggedOut logo={Logo}/>
+            }
         </nav>
     )
 }
