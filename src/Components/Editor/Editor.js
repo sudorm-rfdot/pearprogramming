@@ -35,6 +35,7 @@ class Editor extends Component {
 
   onChange = (newValue, e) => {
     this.socket.emit('update text', newValue)
+    this.setState({code: newValue});
   }
 
   checkState = () => {

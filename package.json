@@ -38,7 +38,7 @@
     "ignore": [
       "src/*",
       "public/*",
-      "CompCode/*"
+      "CompiledCode.js"
     ]
   },
   "browserslist": [
