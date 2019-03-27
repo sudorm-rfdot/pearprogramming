@@ -76,10 +76,10 @@ class Profile extends Component {
         if (newArr.length < 1) {
             axios.put('/auth/updateemail', { email, id })
                 .then(res => {
-                    this.state.user.email = res.data.email
                     this.setState({
                         email: '',
-                        emailUpdate: false
+                        emailUpdate: false,
+                        user: {...this.state.user, email: res.data.email}
                     })
                 })
                 .catch(error => { this.setState({ errorsList: [error.response.data] }) })
@@ -97,10 +97,10 @@ class Profile extends Component {
         if (newArr.length < 1) {
             axios.put('/auth/updateusername', { username, id })
                 .then(res => {
-                    this.state.user.username = res.data.username
                     this.setState({
                         username: '',
-                        usernameUpdate: false
+                        usernameUpdate: false,
+                        user: {...this.state.user, username: res.data.username}
                     })
                 })
                 .catch(error => { this.setState({ errorsList: [error.response.data] }) })
@@ -155,42 +155,42 @@ class Profile extends Component {
         const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`;
         axios.get('/api/signs3', {
             params: {
-              'file-name': fileName,
-              'file-type': file.type,
+                'file-name': fileName,
+                'file-type': file.type,
             },
-          })
-          .then(response => {
-            const { signedRequest, url } = response.data;
-            this.uploadFile(file, signedRequest, url);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      };
-    
-      uploadFile = (file, signedRequest, url) => {
-        const options = {
-          headers: {
-            'Content-Type': file.type,
-          },
-        };
-    
-        axios.put(signedRequest, file, options)
-        .catch(err => {
-            this.setState({
-              isUploading: false,
+        })
+            .then(response => {
+                const { signedRequest, url } = response.data;
+                this.uploadFile(file, signedRequest, url);
+            })
+            .catch(err => {
+                console.log(err);
             });
-            if (err.response.status === 403) {
-              alert(
-                `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
-                  err.stack
-                }`
-              );
-            } else {
-              alert(`ERROR: ${err.status}\n ${err.stack}`);
-            }
-          });
-      };
+    };
+
+    uploadFile = (file, signedRequest, url) => {
+        const options = {
+            headers: {
+                'Content-Type': file.type,
+            },
+        };
+
+        axios.put(signedRequest, file, options)
+            .catch(err => {
+                this.setState({
+                    isUploading: false,
+                });
+                if (err.response.status === 403) {
+                    alert(
+                        `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
+                        err.stack
+                        }`
+                    );
+                } else {
+                    alert(`ERROR: ${err.status}\n ${err.stack}`);
+                }
+            });
+    };
 
     render() {
         const { emailUpdate, usernameUpdate, passwordUpdate, errorsList, email, oldPassword, password, passwordVer, username, deletePassword, deleteClick, deleteClick2, deleteClick3, deleteClick4 } = this.state
@@ -202,28 +202,28 @@ class Profile extends Component {
             <div id='profile-component-parent'>
                 {
                     this.state.user.profile_picture ?
-                    <Dropzone
-                    onDropAccepted={this.getSignedRequest}
-                    accept="image/*"
-                    multiple={false}>
-                    {({getRootProps, getInputProps}) => (
-                        <div>
-                            <input {...getInputProps()}/>
-                            <img src={this.state.user.profile_picture} alt={'Profile_Picture'} {...getRootProps()}></img>
-                        </div>
-                    )}
-                    </Dropzone> :
-                    <Dropzone
-                    onDropAccepted={this.getSignedRequest}
-                    accept="image/*"
-                    multiple={false}>
-                    {({getRootProps, getInputProps}) => (
-                        <div>
-                            <input {...getInputProps()}/>
-                            <img src={default_profile_picture} alt={'Profile_Picture'} {...getRootProps()}></img>
-                        </div>
-                    )}
-                    </Dropzone>
+                        <Dropzone
+                            onDropAccepted={this.getSignedRequest}
+                            accept="image/*"
+                            multiple={false}>
+                            {({ getRootProps, getInputProps }) => (
+                                <div>
+                                    <input {...getInputProps()} />
+                                    <img src={this.state.user.profile_picture} alt={'Profile_Picture'} {...getRootProps()}></img>
+                                </div>
+                            )}
+                        </Dropzone> :
+                        <Dropzone
+                            onDropAccepted={this.getSignedRequest}
+                            accept="image/*"
+                            multiple={false}>
+                            {({ getRootProps, getInputProps }) => (
+                                <div>
+                                    <input {...getInputProps()} />
+                                    <img src={default_profile_picture} alt={'Profile_Picture'} {...getRootProps()}></img>
+                                </div>
+                            )}
+                        </Dropzone>
                 }
                 <div className='profile-user-info'>
                     {
