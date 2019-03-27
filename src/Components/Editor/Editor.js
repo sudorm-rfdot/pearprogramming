@@ -18,7 +18,8 @@ class Editor extends Component {
     this.socket.on('on connection', (data) =>
     {
       console.log(data);
-      
+      this.setState({code: data});
+
     })
     this.socket.on('new text', (data) =>
     {
@@ -81,15 +82,15 @@ class Editor extends Component {
     };
     return (
       <div>
-        <select onChange={e => this.changeTheme(e.target.value)}>
-          <option value='vs-light'>Light</option>
+      <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
           <option value='vs-dark' defaultValue>Dark</option>
+          <option value='vs-light'>Light</option>
         </select>
 
-        <select onChange={e => this.changeLang(e.target.value)}>
+        <select  value={this.state.language} onChange={e => this.changeLang(e.target.value)}>
+          <option value='javascript'>JavaScript</option>
           <option value='html'>HTML</option>
           <option value='css'>CSS</option>
-          <option value='javascript' defaultValue>JavaScript</option>
         </select>
         {this.state.console}
         <MonacoEditor
