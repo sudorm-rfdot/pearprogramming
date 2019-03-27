@@ -10,10 +10,10 @@ import Projects from './Components/Projects/Projects'
 export default(
   <Switch>
     <Route exact path='/' component={Login} />
-    <Route path='/Editor' component={Editor} />
+    <Route path='/Editor/:fileid' component={Editor} />
     <Route path='/Register' component={Register} />
     <Route path='/Profile' component={Profile} />
     <Route path='/Home' component={Home} />
-    <Route path='/Projects' component={Projects} />
+    <Route path='/Projects/:projectid' component={Projects} />
   </Switch>
 )
