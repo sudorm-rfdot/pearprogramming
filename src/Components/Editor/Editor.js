@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import MonacoEditor from 'react-monaco-editor';
+import io from 'socket.io-client';
 import axios from 'axios'
 import './Editor.scss'
 
@@ -11,6 +12,19 @@ class Editor extends Component {
     language: 'javascript',
     console: ''
   }
+  componentDidMount()
+  {
+    this.socket = io.connect('/');
+    this.socket.on('on connection', (data) =>
+    {
+      console.log(data);
+      
+    })
+    this.socket.on('new text', (data) =>
+    {
+      this.setState({code: data});
+    })
+  }
 
   editorDidMount = (editor, monaco) => {
     editor.focus()
@@ -19,11 +33,7 @@ class Editor extends Component {
 
 
   onChange = (newValue, e) => {
-    console.log('e', e)
-    console.log('newValue', newValue);
-    this.setState({
-      code: newValue
-    })
+    this.socket.emit('update text', newValue)
   }
 
   checkState = () => {
@@ -73,13 +83,13 @@ class Editor extends Component {
       <div>
         <select onChange={e => this.changeTheme(e.target.value)}>
           <option value='vs-light'>Light</option>
-          <option value='vs-dark' selected>Dark</option>
+          <option value='vs-dark' defaultValue>Dark</option>
         </select>
 
         <select onChange={e => this.changeLang(e.target.value)}>
           <option value='html'>HTML</option>
           <option value='css'>CSS</option>
-          <option value='javascript' selected>JavaScript</option>
+          <option value='javascript' defaultValue>JavaScript</option>
         </select>
         {this.state.console}
         <MonacoEditor
