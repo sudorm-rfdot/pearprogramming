@@ -53,9 +53,15 @@ module.exports = {
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     createProjectFiles: (req, res) => {
-        const {file_name, file_link, project_id} = req.body;
-        req.app.get('db').createProjectFiles([file_name, file_link, project_id])
+        const {file_name, project_id} = req.body;
+        req.app.get('db').createProjectFiles([file_name, project_id])
         .then(res.sendStatus(200))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    updateFileText: (req, res) => {
+        const {file_link, id} = req.body;
+        req.app.get('db').update_file_text([file_link, id])
+        .then(file => res.status(200).send(file))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     deleteProjectFiles: (req, res) => {
