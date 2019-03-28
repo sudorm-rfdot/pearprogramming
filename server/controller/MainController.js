@@ -101,5 +101,11 @@ module.exports = {
         req.session.destroy()
         req.app.get('db').user.delete_profile(id)
         .then(res.sendStatus(200))
+    },
+    uploadProfilePicture: (req, res) => {
+        const {profile_picture, id} = req.body;
+        req.app.get('db').user.upload_profile_picture([profile_picture, id])
+        .then(picture => res.status(200).send(picture))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     }
 }
