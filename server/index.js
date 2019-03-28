@@ -45,7 +45,7 @@ app.get('/api/signs3', (req, res) => {
                 }
                 const returnData = {
                       signedRequest: data,
-                      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+                      profile_picture: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
                   };
             
                   return res.send(returnData);
@@ -74,6 +74,7 @@ app.get('/api/signs3', (req, res) => {
             app.put('/auth/updateusername', mc.updateUsername);
             app.put('/api/user/:id', mc.updateUserProfile); //takes the user id, also needs a req.body containing email, username, and password
             app.put('/api/pendingrequest/:id', mc.acceptProjectRequest); //takes the user id
+            app.put('/api/profilepicture', mc.uploadProfilePicture) //takes the picture link and the user id in req.body
             
             app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
             app.delete('/api/files/:id', mc.deleteProjectFiles) //takes the file id

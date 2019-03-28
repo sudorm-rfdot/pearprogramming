@@ -160,15 +160,15 @@ class Profile extends Component {
             },
         })
             .then(response => {
-                const { signedRequest, url } = response.data;
-                this.uploadFile(file, signedRequest, url);
+                const { signedRequest, profile_picture } = response.data;
+                this.uploadFile(file, signedRequest, profile_picture);
             })
             .catch(err => {
                 console.log(err);
             });
     };
 
-    uploadFile = (file, signedRequest, url) => {
+    uploadFile = (file, signedRequest, profile_picture) => {
         const options = {
             headers: {
                 'Content-Type': file.type,
@@ -176,6 +176,14 @@ class Profile extends Component {
         };
 
         axios.put(signedRequest, file, options)
+            .then(response => {
+                this.setState({user: {...this.state.user, profile_picture}})
+                const picture = {
+                    profile_picture: this.state.user.profile_picture,
+                    id: this.state.user.id
+                }
+                axios.put('/api/profilepicture', picture)
+            })
             .catch(err => {
                 this.setState({
                     isUploading: false,
