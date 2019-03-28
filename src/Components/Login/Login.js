@@ -60,33 +60,35 @@ class Login extends Component {
 
         return (
             <div id='login-component-parent'>
-                {
-                    errorsList ?
-                    <ul>
-                        {errors}
-                    </ul>
-                    :
-                    null
-                }
-                <h1>Login</h1>
-                <input
-                    ref={this.emailInput}
-                    placeholder='Email'
-                    type='email'
-                    maxLength='250'
-                    value={email}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('email'))]})}}
-                />
-                <input
-                    ref={this.passwordInput}
-                    placeholder='Password'
-                    type='password'
-                    maxLength='40'
-                    value={password}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('password'))]});}}
-                />
-                <button onClick={() => this.handleLoginButton(email, password)}>Login</button>
-                <p>Don't have an account? <span><Link to='/register'>Create one!</Link></span></p>
+                <div>
+                    {
+                        errorsList ?
+                        <ul>
+                            {errors}
+                        </ul>
+                        :
+                        null
+                    }
+                    <h1>Login</h1>
+                    <input
+                        ref={this.emailInput}
+                        placeholder='Email'
+                        type='email'
+                        maxLength='250'
+                        value={email}
+                        onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('email'))]})}}
+                    />
+                    <input
+                        ref={this.passwordInput}
+                        placeholder='Password'
+                        type='password'
+                        maxLength='40'
+                        value={password}
+                        onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('password'))]});}}
+                    />
+                    <button onClick={() => this.handleLoginButton(email, password)}>Login</button>
+                    <p>Don't have an account? <span><Link to='/register'>Create one!</Link></span></p>
+                </div>
             </div>
         )
     }

@@ -1,46 +1,55 @@
 @import './../../variables';
 
 #register-component-parent {
+    width: 80%;
+    background: $content-container-color;
+    height: calc(100vh - #{$navbar-size});
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: auto;
-    border-radius: 15px;
-    margin-top: 100px;
-
-    @include primary-form;
-    h1 {
-        @include primary-header;
-    };
-    input {
-        @include primary-input;
-    };
-    input:focus, input:hover {
-        @include primary-input-hover;
-    };
-    button {
-        @include primary-button;
-    };
-    button:hover, button:active {
-        @include primary-button-hover;
-    };
-    p {
-        @include primary-p-tag;
-    };
-    a {
-        @include primary-a-tag;
-    };
-    a:hover, a:focus {
-        @include primary-a-tag-hover;
-    };
-    li {
-        @include primary-li-error;
-    };
-    .input-error {
-        @include failed-input;
-    }
-    .input-error:hover, .input-error:focus {
-        @include failed-input-hover;
+    
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        border-radius: 15px;
+        margin-top: 100px;
+    
+        @include primary-form;
+        h1 {
+            @include primary-header;
+        };
+        input {
+            @include primary-input;
+        };
+        input:focus, input:hover {
+            @include primary-input-hover;
+        };
+        button {
+            @include primary-button;
+        };
+        button:hover, button:active {
+            @include primary-button-hover;
+        };
+        p {
+            @include primary-p-tag;
+        };
+        a {
+            @include primary-a-tag;
+        };
+        a:hover, a:focus {
+            @include primary-a-tag-hover;
+        };
+        li {
+            @include primary-li-error;
+        };
+        .input-error {
+            @include failed-input;
+        }
+        .input-error:hover, .input-error:focus {
+            @include failed-input-hover;
+        }
     }
 }
