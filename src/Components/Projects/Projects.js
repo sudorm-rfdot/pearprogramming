@@ -17,13 +17,10 @@ class Projects extends Component {
   }
 
   render() {
-    // const mappedFiles = this.state.files.map((filesObj, i) => {
-    //   return <Link to = {`/Editor/${filesObj.id}`}><Boxes key = {i} id = {filesObj.id} name = {filesObj.file_name} /></Link>
-    // })
+    
     return(
       <div className='editor_page'>
-      project component
-        <FileTree/>
+        <FileTree files={this.state.files} projectid={this.props.match.params.projectid}/>
         <Editor/>
       </div>
     )
