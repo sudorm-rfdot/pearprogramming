@@ -22,6 +22,7 @@ class Projects extends Component {
     // })
     return(
       <div className='editor_page'>
+      project component
         <FileTree/>
         <Editor/>
       </div>
