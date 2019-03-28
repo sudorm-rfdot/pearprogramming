@@ -75,6 +75,7 @@ app.get('/api/signs3', (req, res) => {
             app.put('/api/user/:id', mc.updateUserProfile); //takes the user id, also needs a req.body containing email, username, and password
             app.put('/api/pendingrequest/:id', mc.acceptProjectRequest); //takes the user id
             app.put('/api/profilepicture', mc.uploadProfilePicture) //takes the picture link and the user id in req.body
+            app.put('/api/updatefile', mc.updateFileText); //takes the file_link and file id in a req.body
             
             app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
             app.delete('/api/files/:id', mc.deleteProjectFiles) //takes the file id
