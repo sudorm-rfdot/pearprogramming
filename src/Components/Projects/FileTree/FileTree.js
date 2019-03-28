@@ -25,7 +25,7 @@ class FileTree extends Component {
   {
     event.preventDefault();
     this.setState({fileName: "", newFile: false});
-    axios.post('/api/files', {project_id: this.props.projectID, file_name: this.state.fileName})
+    axios.post('/api/files', {project_id: this.props.projectid, file_name: this.state.fileName})
     .then((response) =>
     {
         console.log(response.data);

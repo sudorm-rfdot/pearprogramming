@@ -54,7 +54,7 @@ module.exports = {
     },
     createProjectFiles: (req, res) => {
         const {file_name, project_id} = req.body;
-        req.app.get('db').createProjectFiles([file_name, project_id])
+        req.app.get('db').create_file([file_name, project_id])
         .then(res.sendStatus(200))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
