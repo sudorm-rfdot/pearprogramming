@@ -54,6 +54,7 @@ class Editor extends Component {
   }
 
   compile = () => {
+    this.setState({console: "compileing..."})
     axios.post('/api/compiler', {code: this.state.code})
       .then(res => {
         this.setState({
@@ -84,7 +85,7 @@ class Editor extends Component {
       <div className='editor_page'>
       <section className='editor_container'>
       <div className='editor_buttons'>
-        <div className='selectors'>
+        {/* <div className='selectors'>
           <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
             <option value='vs-dark' defaultValue>Dark</option>
             <option value='vs-light'>Light</option>
@@ -95,7 +96,7 @@ class Editor extends Component {
             <option value='html'>HTML</option>
             <option value='css'>CSS</option>
           </select>
-        </div>
+        </div> */}
         <button className='run' onClick={this.compile}>Run</button>
       </div>
         <MonacoEditor

@@ -21,7 +21,7 @@ module.exports = {
     compiler.on('exit', () =>
     {
       res.status(200).send(consoleOutput);
-      // console.log('exit');
+      console.log('exit');
       consoleOutput = "";
     })
   }
