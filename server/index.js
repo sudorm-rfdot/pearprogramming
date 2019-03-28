@@ -89,15 +89,19 @@ app.get('/api/signs3', (req, res) => {
               const PORT = SERVER_PORT || 3005
               const server = app.listen(PORT, console.log(`Server is running on ${PORT}`))
               const io = sockets(server);
-              let text = '';
+              let text = {};
               io.on('connection', (socket) =>
               {
-                console.log('sockets');
-                socket.emit('on connection', text);
-                socket.on('update text', (data) =>
+                socket.on('join room', (room) =>
                 {
-                  text = data;
-                  socket.broadcast.emit('new text', text);
+                  // console.log(room);
+                  socket.join(room);
+                  socket.emit('on connection', text[room] || '//code')
+                  socket.on('update text', (data) =>
+                  {
+                    text[data.room] = data.text;
+                    socket.to(data.room).broadcast.emit('new text', text[data.room]);
+                  })
                 })
               })
             })

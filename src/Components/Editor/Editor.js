@@ -14,12 +14,12 @@ class Editor extends Component {
   }
   componentDidMount()
   {
+    this.projectID = '1a4kf903o4a'
     this.socket = io.connect('/');
+    this.socket.emit('join room', this.projectID)
     this.socket.on('on connection', (data) =>
     {
-      console.log(data);
       this.setState({code: data});
-
     })
     this.socket.on('new text', (data) =>
     {
@@ -33,7 +33,7 @@ class Editor extends Component {
   }
 
   onChange = (newValue, e) => {
-    this.socket.emit('update text', newValue)
+    this.socket.emit('update text', {text:newValue, room: this.projectID})
     this.setState({code: newValue});
   }
 
