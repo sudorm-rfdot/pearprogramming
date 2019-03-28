@@ -8,14 +8,21 @@ module.exports = {
     const compCode = fs.createWriteStream(emptyJS);
     compCode.write(code);
     compCode.end();
+    let consoleOutput = ""
     const compiler = spawn('node', [emptyJS]);
     compiler.stdout.setEncoding('ascii')
     compiler.stderr.setEncoding('ascii')
     compiler.stdout.on('data', (data) => {
-      res.status(200).send(data)
+        consoleOutput += `${data}\n`
     })
     compiler.stderr.on('data', (data) => {
-      res.status(200).send(data)
+      consoleOutput = data;
+    })
+    compiler.on('exit', () =>
+    {
+      res.status(200).send(consoleOutput);
+      // console.log('exit');
+      consoleOutput = "";
     })
   }
 }
