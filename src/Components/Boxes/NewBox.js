@@ -21,7 +21,7 @@ class NewBox extends Component {
     axios.post('/api/project', {project_name: this.state.projectName}).then((res) => {
       console.log(res.data, 'userid', this.props.id, 'project_id', res.data[0].id)
       axios.post('/api/userproject', {user_id: this.props.id, project_id: res.data[0].id, accepted: true}).then(() => {
-        this.props.history.push('/Projects')
+        this.props.history.push(`/Projects/${res.data[0].id}`)
       })
     })
   }
