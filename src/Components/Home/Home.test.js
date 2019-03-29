@@ -1,4 +1,4 @@
-import {toggleBool} from './HomeLogic'
+import {toggleBool} from './HomeLogic';
 
 describe('ensures createproject toggles state on Home.js', () => {
   test('is this a function?', () => {

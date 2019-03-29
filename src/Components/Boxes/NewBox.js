@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom'
+import {changeName} from './BoxesLogic';
 
 class NewBox extends Component {
   constructor(props) {
@@ -9,12 +10,6 @@ class NewBox extends Component {
       projectName: '',
       projectId: ''
     }
-  }
-
-  changeName = (val) => {
-    this.setState({
-      projectName: val
-    })
   }
 
   addProject = () => {
@@ -27,10 +22,11 @@ class NewBox extends Component {
   }
 
   render() {
+    console.log(this.state.projectName)
     return(
       <div>
         <p>NewBox</p>
-        <input value={this.state.projectName} onChange={e => this.changeName(e.target.value)}></input>
+        <input value={this.state.projectName} onChange={e => {let newObj = changeName(this.state, e.target.value, 'projectName'); this.setState({...newObj})}}></input>
         {this.state.projectName}
         <button onClick={this.addProject}>add project</button>
       </div>
