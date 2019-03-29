@@ -62,41 +62,43 @@ class Register extends Component {
         
         return (
             <div id='register-component-parent'>
-                {
-                    errorsList ?
-                    <ul>
-                        {errors}
-                    </ul>
-                    :
-                    null
-                }
-                <h1>Register</h1>
-                <input
-                    ref={this.emailInput}
-                    placeholder='Email'
-                    type='email'
-                    maxLength='250'
-                    value={email}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => (element.toLowerCase().includes('already') ? !element.toLowerCase().includes('already') : !element.toLowerCase().includes('email')))]});}}
-                />
-                <input
-                    ref={this.passwordInput}
-                    placeholder='Password'
-                    type='password'
-                    maxLength='40'
-                    value={password}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => element.toLowerCase().includes('retype') ? true : !element.toLowerCase().includes('password'))]});}}
-                />
-                <input
-                    ref={this.passwordVerInput}
-                    placeholder='Verify Password'
-                    type='password'
-                    maxLength='40'
-                    value={passwordVer}
-                    onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('retype'))]});}}
-                />
-                <button onClick={() => this.handleRegisterButton(email, password, passwordVer)}>Register</button>
-                <p>Already have an account? <span><Link to='/'>Login!</Link></span></p>
+                <div>
+                    {
+                        errorsList ?
+                        <ul>
+                            {errors}
+                        </ul>
+                        :
+                        null
+                    }
+                    <h1>Register</h1>
+                    <input
+                        ref={this.emailInput}
+                        placeholder='Email'
+                        type='email'
+                        maxLength='250'
+                        value={email}
+                        onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'email'); this.setState({...newObj, errorsList: [...errorsList.filter(element => (element.toLowerCase().includes('already') ? !element.toLowerCase().includes('already') : !element.toLowerCase().includes('email')))]});}}
+                    />
+                    <input
+                        ref={this.passwordInput}
+                        placeholder='Password'
+                        type='password'
+                        maxLength='40'
+                        value={password}
+                        onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => element.toLowerCase().includes('retype') ? true : !element.toLowerCase().includes('password'))]});}}
+                    />
+                    <input
+                        ref={this.passwordVerInput}
+                        placeholder='Verify Password'
+                        type='password'
+                        maxLength='40'
+                        value={passwordVer}
+                        onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('retype'))]});}}
+                    />
+                    <button onClick={() => this.handleRegisterButton(email, password, passwordVer)}>Register</button>
+                    <p>Already have an account? <span><Link to='/'>Login!</Link></span></p>
+                </div>
             </div>
         )
     }

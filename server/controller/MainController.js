@@ -66,6 +66,7 @@ module.exports = {
     },
     deleteProjectFiles: (req, res) => {
         const {id} = req.params;
+        console.log(id)
         req.app.get('db').delete_files(id)
         .then(res.sendStatus(200))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
