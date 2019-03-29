@@ -75,6 +75,7 @@ app.get('/api/signs3', (req, res) => {
             app.put('/api/user/:id', mc.updateUserProfile); //takes the user id, also needs a req.body containing email, username, and password
             app.put('/api/pendingrequest/:id', mc.acceptProjectRequest); //takes the user id
             app.put('/api/profilepicture', mc.uploadProfilePicture) //takes the picture link and the user id in req.body
+            app.put('/api/updatefile', mc.updateFileText); //takes the file_link and file id in a req.body
             
             app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
             app.delete('/api/files/:id', mc.deleteProjectFiles) //takes the file id
@@ -89,15 +90,19 @@ app.get('/api/signs3', (req, res) => {
               const PORT = SERVER_PORT || 3005
               const server = app.listen(PORT, console.log(`Server is running on ${PORT}`))
               const io = sockets(server);
-              let text = '';
+              let text = {};
               io.on('connection', (socket) =>
               {
-                console.log('sockets');
-                socket.emit('on connection', text);
-                socket.on('update text', (data) =>
+                socket.on('join room', (room) =>
                 {
-                  text = data;
-                  socket.broadcast.emit('new text', text);
+                  // console.log(room);
+                  socket.join(room);
+                  socket.emit('on connection', text[room] || '//code')
+                  socket.on('update text', (data) =>
+                  {
+                    text[data.room] = data.text;
+                    socket.to(data.room).broadcast.emit('new text', text[data.room]);
+                  })
                 })
               })
             })
