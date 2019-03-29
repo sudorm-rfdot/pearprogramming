@@ -3,7 +3,9 @@ import Boxes from './../Boxes/Boxes';
 import NewBox from './../Boxes/NewBox';
 import PendingBox from './../Boxes/PendingBox';
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
+import './Home.scss'
 
 class Home extends Component {
   state = {
@@ -14,6 +16,19 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    const { id } = this.props
+    if (id > 0) {
+
+    } else {
+      axios.get('/auth/getsessionuser')
+        .then(res => {
+          this.setState({
+            user: res.data
+          })
+        })
+        .catch(() => { this.props.history.push('/') })
+    }
+    
     this.setState({
       createNew: ''
     })
@@ -56,7 +71,7 @@ class Home extends Component {
       return <Link to= {`/Projects/${projectObj.project_id}`} key={i}><Boxes id={projectObj.project_id} name={projectObj.project_name} /></Link>
     })
     const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
-      return <PendingBox key={i} id={pendingObj.project_id} name = {pendingObj.project_name} />
+      return <PendingBox key={i} id={pendingObj.project_id} name={pendingObj.project_name} />
     })
     return (
       <main>
