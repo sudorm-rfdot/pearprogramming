@@ -4,12 +4,13 @@ import NewBox from './../Boxes/NewBox';
 import PendingBox from './../Boxes/PendingBox';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import {toggleBool} from './HomeLogic'
 
 import './Home.scss'
 
 class Home extends Component {
   state = {
-    createNew: '',
+    createNew: false,
     user_id: '',
     projects: [],
     pendingProjects: []
@@ -37,7 +38,7 @@ class Home extends Component {
 
   createProject = () => {
     this.setState({
-      createNew: !this.state.createNew
+      createNew: toggleBool(this.state.createNew)
     })
   }
 
