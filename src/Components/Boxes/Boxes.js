@@ -1,9 +1,12 @@
 import React from 'react';
+import './Boxes.scss'
 
 const Boxes = (props) => {
 
+
+
   return (
-    <div>
+    <div id='boxesparent'>
       <div>
         <p>{props.name}</p>
       </div>
