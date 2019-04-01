@@ -14,9 +14,8 @@ class Editor extends Component {
   }
   componentDidMount()
   {
-    this.projectID = '1a4kf903o4a'
     this.socket = io.connect('/');
-    this.socket.emit('join room', this.projectID)
+    this.socket.emit('join room', this.props.currentFile.projectID)
     this.socket.on('on connection', (data) =>
     {
       this.setState({code: data});
