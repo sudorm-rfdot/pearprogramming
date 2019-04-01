@@ -52,19 +52,24 @@ app.get('/api/signs3', (req, res) => {
               })
             })
             
+            // Matt
             app.get('/api/projects/:id', mc.getUserProjects); //takes the users id
+            // Spence
             app.get('/api/pendingprojects/:id', mc.getPendingUserProjects); //takes the users id
             app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
             app.get('/api/file/:id', mc.getOneFile); //takes the file id
             app.get('/api/profile/:id', mc.getUserProfile); //takes the user id
-            
+             // Nick
             app.post('/auth/register', ac.register);
+            // Nick
             app.post('/auth/login', ac.login);
+            // Nick
             app.post('/auth/logout', ac.logout);
             app.post('/auth/verifypassword', ac.verifyPassword);
             app.get('/auth/getsessionuser', ac.getSessionUser)
             app.post('/api/project', mc.createProject); //takes the project_name in req.body
             app.post('/api/userproject', mc.userProjectJoin); //takes user_id, password_id, and accepted in req.body
+            // Spence
             app.post('/api/files', mc.createProjectFiles); //takes file_name, file_link, and project_id in req.body
             app.post('/api/projectrequest', mc.sendProjectRequest); //takes the user_id of the user getting sent the request, as well as the project_id in req.body
             
@@ -77,8 +82,11 @@ app.get('/api/signs3', (req, res) => {
             app.put('/api/profilepicture', mc.uploadProfilePicture) //takes the picture link and the user id in req.body
             app.put('/api/updatefile', mc.updateFileText); //takes the file_link and file id in a req.body
             
+            // Spence
             app.delete('/api/delete-project/:id', mc.deleteProject); //takes the project id
+            
             app.delete('/api/files/:id', mc.deleteProjectFiles) //takes the file id
+            // Nick
             app.delete('/api/user/:id', mc.deleteUserProfile) //takes the user id
             
             app.post('/api/compiler', cc.compile);
