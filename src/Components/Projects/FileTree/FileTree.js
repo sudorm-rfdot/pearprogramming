@@ -39,7 +39,7 @@ class FileTree extends Component {
   render() {
       const files = this.props.files.map((curVal, index) =>
       {
-        return <div key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}</div>
+        return <div key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}.js</div>
       })
     return(
       <div className='fileTree'>

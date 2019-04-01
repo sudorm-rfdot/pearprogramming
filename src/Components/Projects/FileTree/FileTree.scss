@@ -1,6 +1,6 @@
 .fileTree
 {
-    width: 150px;
+    width: 10%;
     height: 100vh;
     // background-color: grey;
     padding: 15px;
@@ -18,4 +18,7 @@
 .files
 {
     color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
