@@ -3,14 +3,15 @@ import MonacoEditor from 'react-monaco-editor';
 import io from 'socket.io-client';
 import axios from 'axios'
 import './Editor.scss'
-
+import Invite from './../../Boxes/Invite'
 
 class Editor extends Component {
   state = {
     code: '',
     theme: 'vs-dark',
     language: 'javascript',
-    console: ''
+    console: '',
+    clicked: false
   }
   componentDidMount()
   {
@@ -53,6 +54,7 @@ class Editor extends Component {
     })
   }
 
+  
   compile = () => {
     this.setState({console: "compileing..."})
     axios.post('/api/compiler', {code: this.state.code})
@@ -64,6 +66,13 @@ class Editor extends Component {
       console.log(`this ain't it chief`, err)
     })
   }
+
+  change = () => {
+    this.setState({
+      clicked: !this.state.clicked
+    })
+  }
+
 
   render() {
     const requireConfig = {
@@ -93,7 +102,8 @@ class Editor extends Component {
           </select>
 
         </div> */}
-        <button className='run'>Invite</button>
+        <button onClick={this.change}>{this.state.clicked ? 'cancel' : 'rm -rf'}</button>
+        {this.state.clicked && <Invite />}
         <button className='run' onClick={this.compile}>Run</button>
       </div>
         <MonacoEditor

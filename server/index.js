@@ -60,6 +60,7 @@ app.get('/api/signs3', (req, res) => {
             app.get('/api/files/:id', mc.getProjectFiles); //takes the project id
             app.get('/api/file/:id', mc.getOneFile); //takes the file id
             app.get('/api/profile/:id', mc.getUserProfile); //takes the user id
+            app.get('/api/profile', mc.getIdByEmail)// get user id by email
              // Nick
             app.post('/auth/register', ac.register);
             // Nick
