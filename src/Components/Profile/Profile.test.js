@@ -1,12 +1,15 @@
 import { handleProfileErrors, handleInputColorUpdate } from './ProfileLogic'
 
 describe('Error handling on Profile.js', () => {
+    // Spencer
     test('handleProfileErrors should be a function', () => {
         expect(typeof handleProfileErrors).toBe('function')
     })
+    // Spencer
     test('handleProfileErrors Should return an array', () => {
         expect(typeof handleProfileErrors()).toBe(typeof [])
     })
+    // Spencer
     test('handleProfileErrors should return an array with errors if empty', () => {
         expect(handleProfileErrors('email', {})).toEqual(['You must enter an email'])
     })
