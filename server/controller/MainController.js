@@ -18,8 +18,15 @@ module.exports = {
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     acceptProjectRequest: (req, res) => {
-        const {id} = req.params;
-        req.app.get('db').accept_project_request(id)
+        const {projectid, userid} = req.body;
+        req.app.get('db').accept_project_request({projectid, userid})
+        .then(res.sendStatus(200))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    deleteProjectRequest: (req, res) => {
+        const {projectid, userid} = req.body;
+        console.log(projectid, userid)
+        req.app.get('db').delete_project_request({projectid, userid})
         .then(res.sendStatus(200))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
