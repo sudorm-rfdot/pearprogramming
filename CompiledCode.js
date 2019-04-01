@@ -1,1 +1,1 @@
-console.log('ya yeet')
+console.log('yeet')

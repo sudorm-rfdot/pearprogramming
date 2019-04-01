@@ -60,7 +60,9 @@ class Projects extends Component {
     return(
       <div className='editor_page'>
         <FileTree files={this.state.files} createFile={this.createFile} changeFile={this.changeFile}/>
-        <Editor currentFile={this.state.currentFile}/>
+        {(this.state.currentFile.id)
+        ?<Editor currentFile={this.state.currentFile}/>
+        :<p>Get coding you lazy sloth</p>}
       </div>
     )
   }
