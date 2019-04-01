@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import {scrubbedInput, correctFileData} from './FileTreeLogic';
+import {scrubbedInput} from './FileTreeLogic';
 import './FileTree.scss'
 
 class FileTree extends Component {
@@ -9,19 +8,11 @@ class FileTree extends Component {
       console.log('props in file tree', props);
         super(props);
         this.state = {
-            files: props.files,
             newFile: false,
             fileName: '',
             errorList: []
           }
     }
-  componentDidUpdate(prevProps)
-  {
-    if(prevProps.files !== this.props.files)
-    {
-      this.setState({files: this.props.files});
-    }
-  }
   handleNewFile()
   {
      this.setState({newFile: !this.state.newFile});
@@ -38,24 +29,7 @@ class FileTree extends Component {
     if(fileNameErrorList.length === 0)
     {
       this.setState({fileName: "", newFile: false});
-      axios.post('/api/files', {project_id: this.props.projectID, file_name: this.state.fileName})
-      .then((response) =>
-      {
-        const fileErrorList = correctFileData(response.data)
-        console.log(fileErrorList);
-        console.log(response.data);
-        if(fileErrorList.length === 0)
-        {
-          const copyOfFiles = [...this.state.files];
-          copyOfFiles.push(response.data);
-          this.setState({files: copyOfFiles});
-        }
-        else
-        {
-          this.setState({errorList: [...this.state.errorList, ...fileErrorList]})
-        }
-      })
-
+      this.props.createFile(this.state.fileName);
     }
     else
     {
@@ -63,9 +37,9 @@ class FileTree extends Component {
     }
   }
   render() {
-      const files = this.state.files.map((curVal, index) =>
+      const files = this.props.files.map((curVal, index) =>
       {
-        return <div key={index}>{curVal.file_name}</div>
+        return <div key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}</div>
       })
     return(
       <div className='fileTree'>

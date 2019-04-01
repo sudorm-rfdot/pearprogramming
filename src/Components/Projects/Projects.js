@@ -4,6 +4,7 @@ import axios from 'axios';
 // import Boxes from './../Boxes/Boxes';
 import Editor from './Editor/Editor';
 import FileTree from './FileTree/FileTree';
+import {correctFileData} from './FileTree/FileTreeLogic';
 
 class Projects extends Component {
   constructor(props)
@@ -11,7 +12,8 @@ class Projects extends Component {
     super(props);
     this.state = {
       files: [],
-      fileContents: []
+      currentFile: {},
+      errorList: []
     }
   }
   componentDidMount(){
@@ -25,13 +27,40 @@ class Projects extends Component {
   {
 
   }
+  changeFile = async(fileId) => {
+    const foundFile = this.state.files.find(file => file.id === fileId)
+    await this.setState({currentFile: foundFile})
+    console.log(this.state.currentFile)
+  }
+  saveFile(fileId){
+
+  }
+  createFile = (fileName) => {
+    axios.post('/api/files', {project_id: this.props.match.params.projectid, file_name: fileName})
+    .then((response) =>
+    {
+      const fileErrorList = correctFileData(response.data)
+      console.log(fileErrorList);
+      console.log(response.data);
+      if(fileErrorList.length === 0)
+      {
+        const copyOfFiles = [...this.state.files];
+        copyOfFiles.push(response.data);
+        this.setState({files: copyOfFiles});
+      }
+      else
+      {
+        this.setState({errorList: [...this.state.errorList, ...fileErrorList]})
+      }
+    })
+  }
 
   render() {
-    console.log(this.state.files);
+    // console.log(this.state.files);
     return(
       <div className='editor_page'>
-        <FileTree files={this.state.files} projectID={this.props.match.params.projectid}/>
-        <Editor fileContents={this.state.fileContents}/>
+        <FileTree files={this.state.files} createFile={this.createFile} changeFile={this.changeFile}/>
+        <Editor currentFile={this.state.currentFile}/>
       </div>
     )
   }

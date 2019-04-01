@@ -14,9 +14,8 @@ class Editor extends Component {
   }
   componentDidMount()
   {
-    this.projectID = '1a4kf903o4a'
     this.socket = io.connect('/');
-    this.socket.emit('join room', this.projectID)
+    this.socket.emit('join room', this.props.currentFile.projectID)
     this.socket.on('on connection', (data) =>
     {
       this.setState({code: data});
@@ -97,6 +96,7 @@ class Editor extends Component {
             <option value='css'>CSS</option>
           </select>
         </div> */}
+        <button className='run'>Invite</button>
         <button className='run' onClick={this.compile}>Run</button>
       </div>
         <MonacoEditor
@@ -111,7 +111,7 @@ class Editor extends Component {
         />
       </section>
       <section className='console_container'>
-        <h3 className='console_padding'>console: {'<>'}</h3>
+        <h3 className='console_padding'>console: </h3>
         <p className='console_padding'>{this.state.console}</p>
 
       </section>
