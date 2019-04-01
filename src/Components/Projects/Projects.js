@@ -5,6 +5,7 @@ import axios from 'axios';
 import Editor from './Editor/Editor';
 import FileTree from './FileTree/FileTree';
 import {correctFileData} from './FileTree/FileTreeLogic';
+import './Projects.scss';
 
 class Projects extends Component {
   constructor(props)
@@ -58,7 +59,7 @@ class Projects extends Component {
   render() {
     // console.log(this.state.files);
     return(
-      <div className='editor_page'>
+      <div className='project_page'>
         <FileTree files={this.state.files} createFile={this.createFile} changeFile={this.changeFile}/>
         {(this.state.currentFile.id)
         ?<Editor currentFile={this.state.currentFile}/>

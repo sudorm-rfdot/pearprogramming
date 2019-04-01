@@ -13,7 +13,7 @@ module.exports = {
     compiler.stdout.setEncoding('ascii')
     compiler.stderr.setEncoding('ascii')
     compiler.stdout.on('data', (data) => {
-        consoleOutput += `${data}\n`
+        consoleOutput += `${data}`
     })
     compiler.stderr.on('data', (data) => {
       consoleOutput = data;
@@ -21,7 +21,7 @@ module.exports = {
     compiler.on('exit', () =>
     {
       res.status(200).send(consoleOutput);
-      console.log('exit');
+      // console.log('exit');
       consoleOutput = "";
     })
   }
