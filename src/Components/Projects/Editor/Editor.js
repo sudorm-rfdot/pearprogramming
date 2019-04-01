@@ -14,8 +14,9 @@ class Editor extends Component {
   }
   componentDidMount()
   {
+    console.log(this.props.currentFile)
     this.socket = io.connect('/');
-    this.socket.emit('join room', this.props.currentFile.projectID)
+    this.socket.emit('join room', this.props.currentFile.id)
     this.socket.on('on connection', (data) =>
     {
       this.setState({code: data});
@@ -84,17 +85,13 @@ class Editor extends Component {
       <div className='editor_page'>
       <section className='editor_container'>
       <div className='editor_buttons'>
+      
         {/* <div className='selectors'>
           <select value={this.state.theme} onChange={e => this.changeTheme(e.target.value)}>
             <option value='vs-dark' defaultValue>Dark</option>
             <option value='vs-light'>Light</option>
           </select>
 
-          <select  value={this.state.language} onChange={e => this.changeLang(e.target.value)}>
-            <option value='javascript'>JavaScript</option>
-            <option value='html'>HTML</option>
-            <option value='css'>CSS</option>
-          </select>
         </div> */}
         <button className='run'>Invite</button>
         <button className='run' onClick={this.compile}>Run</button>

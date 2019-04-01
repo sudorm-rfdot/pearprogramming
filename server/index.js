@@ -102,9 +102,16 @@ app.get('/api/signs3', (req, res) => {
               let text = {};
               io.on('connection', (socket) =>
               {
-                socket.on('join room', (room) =>
+                socket.on('join room', async (room) =>
                 {
-                  // console.log(room);
+                  console.log(room);
+                  console.log('join room')
+                  if(!text[room]) {
+                    await app.get('db').get_one_file(room).then(file => {
+                      text[room] = file[0].file_link
+                    })
+                    // console.log(`jason derulo: ${text[room]}`)
+                  }
                   socket.join(room);
                   socket.emit('on connection', text[room] || '//code')
                   socket.on('update text', (data) =>
