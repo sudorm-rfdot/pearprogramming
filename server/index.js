@@ -80,7 +80,7 @@ app.get('/api/signs3', (req, res) => {
             app.put('/auth/updateemail', mc.updateUserProfile);
             app.put('/auth/updateusername', mc.updateUsername);
             app.put('/api/user/:id', mc.updateUserProfile); //takes the user id, also needs a req.body containing email, username, and password
-            app.put('/api/pendingrequest/:id', mc.acceptProjectRequest); //takes the user id
+            app.put('/api/pendingrequest', mc.acceptProjectRequest); //takes the user id
             app.put('/api/profilepicture', mc.uploadProfilePicture) //takes the picture link and the user id in req.body
             app.put('/api/updatefile', mc.updateFileText); //takes the file_link and file id in a req.body
             
@@ -90,6 +90,8 @@ app.get('/api/signs3', (req, res) => {
             app.delete('/api/files/:id', mc.deleteProjectFiles) //takes the file id
             // Nick
             app.delete('/api/user/:id', mc.deleteUserProfile) //takes the user id
+
+            app.post('/api/deleteprojectrequest', mc.deleteProjectRequest) //takes the user id
             
             app.post('/api/compiler', cc.compile);
             

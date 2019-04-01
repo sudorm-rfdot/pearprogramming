@@ -19,6 +19,9 @@ class Invite extends Component {
     axios.get(`/api/profile?email=${this.state.emailTxt}`)
     .then(res => {
       axios.post('/api/projectrequest', {user_id: res.data.id, project_id: this.props.match.params.projectid})
+      this.setState({
+        emailTxt: ''
+      })
     })
   }
 
