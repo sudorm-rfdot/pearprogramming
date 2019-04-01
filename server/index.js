@@ -11,6 +11,7 @@ const cc = require('./controller/CompilerController');
 const ac = require('./controller/AuthController');
 
 const app = express();
+const path = require('path')
 app.use(json());
 app.use(express.static(`${__dirname}/../build`))
 
