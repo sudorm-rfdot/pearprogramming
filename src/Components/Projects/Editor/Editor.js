@@ -81,6 +81,7 @@ class Editor extends Component {
       automaticLayout: true,
       
     };
+    console.log('console rerender');
     return (
       <div className='editor_page'>
       <section className='editor_container'>
