@@ -13,26 +13,38 @@ class Editor extends Component {
   }
   componentDidMount()
   {
-    console.log(this.props.currentFile)
     this.socket = io.connect('/');
-    this.socket.emit('join room', this.props.currentFile.id)
-    this.socket.on('on connection', (data) =>
-    {
-      this.setState({code: data});
-    })
-    this.socket.on('new text', (data) =>
-    {
-      this.setState({code: data});
-    })
-  }
+    this.socket.on('on join room', (data) =>
+      {
+        this.setState({code: data});
+      })
+      this.socket.on('new text', (data) =>
+      {
+        this.setState({code: data});
+      })
+      this.socket.emit('join room', this.props.currentFile.id)
 
+  }
+  componentDidUpdate(prevProps)
+  {
+    if(prevProps.currentFile !== this.props.currentFile)
+    {
+      console.log('switched files')
+      this.socket.emit('leave room', prevProps.currentFile.id) //leaves previous room
+      this.socket.emit('join room', this.props.currentFile.id)
+    }
+  }
+  componentWillUnmount()
+  {
+    this.socket.disconnect();
+  }
   editorDidMount = (editor, monaco) => {
     editor.focus()
     console.log('editor did mount', monaco)
   }
 
   onChange = (newValue, e) => {
-    this.socket.emit('update text', {text:newValue, room: this.projectID})
+    this.socket.emit('update text', {text:newValue, room: this.props.currentFile.id})
     this.setState({code: newValue});
   }
 
@@ -84,7 +96,7 @@ class Editor extends Component {
       automaticLayout: true,
       
     };
-    console.log('console rerender');
+    // console.log('console rerender');
     return (
       <div className='editor_page'>
       <section className='editor_container'>

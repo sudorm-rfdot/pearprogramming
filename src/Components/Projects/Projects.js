@@ -33,7 +33,7 @@ class Projects extends Component {
   changeFile = async(fileId) => {
     const foundFile = this.state.files.find(file => file.id === fileId)
     await this.setState({currentFile: foundFile})
-    console.log(this.state.currentFile)
+    // console.log(this.state.currentFile)
   }
   saveFile(fileId){
 
