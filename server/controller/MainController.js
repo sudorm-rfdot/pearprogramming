@@ -118,8 +118,10 @@ module.exports = {
     },
     uploadProfilePicture: (req, res) => {
         const {profile_picture, id} = req.body;
+        let {session} = req;
+        session.user.profile_picture = profile_picture;
         req.app.get('db').user.upload_profile_picture([profile_picture, id])
-        .then(picture => res.status(200).send(picture))
+        .then(picture => res.status(200).send(session.user))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     getIdByEmail: (req, res) => {
