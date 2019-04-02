@@ -18,8 +18,15 @@ module.exports = {
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
     acceptProjectRequest: (req, res) => {
-        const {id} = req.params;
-        req.app.get('db').accept_project_request(id)
+        const {projectid, userid} = req.body;
+        req.app.get('db').accept_project_request({projectid, userid})
+        .then(res.sendStatus(200))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    deleteProjectRequest: (req, res) => {
+        const {projectid, userid} = req.body;
+        console.log(projectid, userid)
+        req.app.get('db').delete_project_request({projectid, userid})
         .then(res.sendStatus(200))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     },
@@ -113,6 +120,12 @@ module.exports = {
         const {profile_picture, id} = req.body;
         req.app.get('db').user.upload_profile_picture([profile_picture, id])
         .then(picture => res.status(200).send(picture))
+        .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
+    },
+    getIdByEmail: (req, res) => {
+        const {email} = req.query
+        req.app.get('db').user.get_user_by_id({email})
+        .then(id => res.status(200).send(id[0]))
         .catch(err => res.status(500).send({errorMessage: 'Error!'}, console.log(err)))
     }
 }

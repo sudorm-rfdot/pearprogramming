@@ -86,7 +86,7 @@ class Home extends Component {
       )
     })
     const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
-      return <PendingBox className='box' key={i} id={pendingObj.project_id} name={pendingObj.project_name} />
+      return <PendingBox className='box' key={i} projectid={pendingObj.project_id} getProjects={this.getProjects} userid={this.state.user_id} name={pendingObj.project_name} />
     })
     return (
       <main id='homeparent'>

@@ -6,6 +6,7 @@ import Editor from './Editor/Editor';
 import FileTree from './FileTree/FileTree';
 import {correctFileData} from './FileTree/FileTreeLogic';
 import './Projects.scss';
+import Invite from './../Boxes/Invite'
 
 class Projects extends Component {
   constructor(props)
@@ -14,7 +15,8 @@ class Projects extends Component {
     this.state = {
       files: [],
       currentFile: {},
-      errorList: []
+      errorList: [],
+      clicked: false
     }
   }
   componentDidMount(){
@@ -35,6 +37,11 @@ class Projects extends Component {
   }
   saveFile(fileId){
 
+  }
+  change = () => {
+    this.setState({
+      clicked: !this.state.clicked
+    })
   }
   createFile = (fileName) => {
     axios.post('/api/files', {project_id: this.props.match.params.projectid, file_name: fileName})
@@ -61,6 +68,9 @@ class Projects extends Component {
     return(
       <div className='project_page'>
         <FileTree files={this.state.files} createFile={this.createFile} changeFile={this.changeFile}/>
+        <button onClick={this.change}>
+        {this.state.clicked ? 'cancel' : 'invite'}</button>
+        {this.state.clicked && <Invite />}
         {(this.state.currentFile.id)
         ?<Editor currentFile={this.state.currentFile}/>
         :<p>Get coding you lazy sloth</p>}

@@ -4,7 +4,6 @@ import io from 'socket.io-client';
 import axios from 'axios'
 import './Editor.scss'
 
-
 class Editor extends Component {
   state = {
     code: '',
@@ -53,6 +52,7 @@ class Editor extends Component {
     })
   }
 
+  
   compile = () => {
     this.setState({console: "compileing..."})
     axios.post('/api/compiler', {code: this.state.code})
@@ -64,6 +64,9 @@ class Editor extends Component {
       console.log(`this ain't it chief`, err)
     })
   }
+
+  
+
 
   render() {
     const requireConfig = {
@@ -94,7 +97,8 @@ class Editor extends Component {
           </select>
 
         </div> */}
-        <button className='run'>Invite</button>
+        
+        
         <button className='run' onClick={this.compile}>Run</button>
       </div>
         <MonacoEditor
