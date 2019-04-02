@@ -36,3 +36,17 @@
         flex-direction: column;
     }
 }
+
+#invite-box {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    z-index: 1;
+
+    button {
+        @include primary_button
+    }
+    input {
+        @include primary_input
+    }
+}

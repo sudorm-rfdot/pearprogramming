@@ -44,8 +44,7 @@ class FileTree extends Component {
     return(
       <div className='fileTree'>
         <h3 className='fileTree_header'>
-            <button onClick={() => this.handleNewFile()}>+file</button>
-            <button>+folder</button>
+            <button onClick={() => this.handleNewFile()}>+ File</button>
         </h3>
         {this.state.newFile && 
         <form onSubmit={(event) => this.handleSubmit(event)}>

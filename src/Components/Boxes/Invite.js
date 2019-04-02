@@ -27,9 +27,10 @@ class Invite extends Component {
 
   render() {
     return (
-      <div>
+      <div id='invite-box'>
+        <button onClick={this.props.cancel}>Cancel</button>
         <input onChange={e => this.handleChange(e.target.value)} value={this.state.emailTxt} />
-        <button onClick={this.inviteToProject}>Add user</button>
+        <button onClick={this.inviteToProject}>Add User</button>
       </div>
     )
   }
