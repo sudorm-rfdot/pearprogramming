@@ -24,11 +24,12 @@ class NewBox extends Component {
   render() {
     console.log(this.state.projectName)
     return(
-      <div>
-        <p>NewBox</p>
-        <input value={this.state.projectName} onChange={e => {let newObj = changeName(this.state, e.target.value, 'projectName'); this.setState({...newObj})}}></input>
-        {this.state.projectName}
-        <button onClick={this.addProject}>add project</button>
+      <div id='new-box'>
+        <div id='add-points' className='box new-box'>
+          <input value={this.state.projectName} onChange={e => {let newObj = changeName(this.state, e.target.value, 'projectName'); this.setState({...newObj})}}></input>
+          <button onClick={this.addProject}>Add Project</button>
+          <button onClick={this.props.cancel}>Cancel</button>
+        </div>
       </div>
     )
   }

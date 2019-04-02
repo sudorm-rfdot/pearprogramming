@@ -1,3 +1,38 @@
-// #boxesparent {
-  
-// }
+@import './../../variables';
+
+#new-box {
+    margin: 5%;
+
+    #add-points {
+        background-color: $primary-nav-color;
+        border: none;
+        margin: 0;
+
+        input {
+            width: 90%;
+        }
+    }
+    
+    .new-box {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#pending-box {
+    margin: 5%;
+
+    #add-points {
+        background-color: rgb(204, 199, 188);
+        margin: 0;
+
+        input {
+            width: 90%;
+        }
+    }
+    
+    .new-box {
+        display: flex;
+        flex-direction: column;
+    }
+}

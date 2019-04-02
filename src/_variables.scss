@@ -120,8 +120,22 @@ $primary-a-hover: rgb(0, 115, 182);
 }
 
 %primary-li-error {
-    color: $dark-error
+    color: $dark-error;
 }
 @mixin primary-li-error {
-    @extend %primary-li-error
+    @extend %primary-li-error;
+}
+
+%primary-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5%;
+    height: 175px;
+    width: 175px;
+    border: 2px black solid;
+    border-radius: 5px;
+}
+@mixin primary-boxes {
+    @extend %primary-boxes;
 }
