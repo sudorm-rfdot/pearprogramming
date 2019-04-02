@@ -107,21 +107,26 @@ app.get('/api/signs3', (req, res) => {
               {
                 socket.on('join room', async (room) =>
                 {
-                  console.log(room);
-                  console.log('join room')
+                  console.log('user joined room', room)
                   if(!text[room]) {
                     await app.get('db').get_one_file(room).then(file => {
                       text[room] = file[0].file_link
                     })
-                    // console.log(`jason derulo: ${text[room]}`)
                   }
                   socket.join(room);
-                  socket.emit('on connection', text[room] || '//code')
-                  socket.on('update text', (data) =>
+                  console.log('room text',text[room]);
+                  socket.emit('on join room', text[room] || '//code')
+                })
+                socket.on('update text', (data) =>
                   {
+                    console.log(text[data.room]);
                     text[data.room] = data.text;
                     socket.to(data.room).broadcast.emit('new text', text[data.room]);
                   })
+                socket.on('leave room', (roomLeaving) =>
+                {
+                  console.log('user left room', roomLeaving);
+                  socket.leave(roomLeaving);
                 })
               })
             })
