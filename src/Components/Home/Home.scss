@@ -1,39 +1,25 @@
 @import './../../variables';
 
-#homeparent {
+#home-parent-comp {
   text-align: center;
   width: 90%;
-  .boxrows {
+  
+  button {
+    @include primary_button;
+  }
+  
+  input {
+    @include primary_input;
+  }
+
+  .box-rows {
+    position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  .boxlink {
-    background-color: green;
-    display: flex;
-    flex-direction: column;
-    img {
-      width: 25px;
-      height: 25px; 
-    }
-  }
-  a:visited {
-    color: yellow;
-  }
-  a:link {
-    color: yellow;
-    text-decoration: none;
-  }
   .box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5%;
-    height: 125px;
-    width: 125px;
-    border: 2px black solid;
-    border-radius: 5px;
+    @include primary_boxes;
   }
-  
 }

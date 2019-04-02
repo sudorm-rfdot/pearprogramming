@@ -35,14 +35,6 @@ class Projects extends Component {
     await this.setState({currentFile: foundFile})
     // console.log(this.state.currentFile)
   }
-  saveFile(fileId){
-
-  }
-  change = () => {
-    this.setState({
-      clicked: !this.state.clicked
-    })
-  }
   createFile = (fileName) => {
     axios.post('/api/files', {project_id: this.props.match.params.projectid, file_name: fileName})
     .then((response) =>
@@ -68,9 +60,7 @@ class Projects extends Component {
     return(
       <div className='project_page'>
         <FileTree files={this.state.files} createFile={this.createFile} changeFile={this.changeFile}/>
-        <button onClick={this.change}>
-        {this.state.clicked ? 'cancel' : 'invite'}</button>
-        {this.state.clicked && <Invite />}
+        {!this.state.clicked ? <button className='invite-button' onClick={() => this.setState({clicked: true})}>Invite</button> : <Invite cancel={() => this.setState({clicked: false})}/>}
         {(this.state.currentFile.id)
         ?<Editor currentFile={this.state.currentFile}/>
         :<p>Get coding you lazy sloth</p>}

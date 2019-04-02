@@ -1,5 +1,16 @@
-.project_page
-{
+@import './../../variables';
+
+.project_page {
   width: 100%;
   display: flex;
+
+  button {
+    @include primary_button
+  }
+
+  .invite-button {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+  }
 }

@@ -3,9 +3,8 @@ import Boxes from './../Boxes/Boxes';
 import NewBox from './../Boxes/NewBox';
 import PendingBox from './../Boxes/PendingBox';
 import axios from 'axios'
-import trashboi from './../../resources/trash.png'
-import { Link } from 'react-router-dom'
-import {toggleBool} from './HomeLogic'
+// import trashboi from './../../resources/trash.png'
+import { toggleBool } from './HomeLogic'
 
 import './Home.scss'
 
@@ -30,7 +29,7 @@ class Home extends Component {
         })
         .catch(() => { this.props.history.push('/') })
     }
-    
+
     this.setState({
       createNew: ''
     })
@@ -46,7 +45,7 @@ class Home extends Component {
   deleteProject = (id) => {
     console.log(id)
     axios.delete(`/api/delete-project/${id}`).then(
-    this.getProjects()
+      this.getProjects()
     )
   }
 
@@ -78,22 +77,27 @@ class Home extends Component {
   render() {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
       return (
-        <div key={i} className='boxlink box'>
-        <Link to= {`/Projects/${projectObj.project_id}`}>
-        <Boxes id={projectObj.project_id} name={projectObj.project_name} /></Link>
-        <img onClick={id => this.deleteProject(projectObj.project_id)} src={trashboi} alt='trash' />
-        </div>
+        // <div>
+          <Boxes id={projectObj.project_id} name={projectObj.project_name} projectObj={projectObj}/>
+        //   <img onClick={id => this.deleteProject(projectObj.project_id)} src={trashboi} alt='trash' />
+        // </div>
       )
     })
     const mappedPending = this.state.pendingProjects.map((pendingObj, i) => {
       return <PendingBox className='box' key={i} projectid={pendingObj.project_id} getProjects={this.getProjects} userid={this.state.user_id} name={pendingObj.project_name} />
     })
+
     return (
-      <main id='homeparent'>
-        <div className='boxrows'>
-          <button className='box' onClick={this.createProject}>{this.state.createNew ? 'cancel' : 'create new'}</button>
-          {(this.state.createNew) && <NewBox id={this.state.user_id} />}
+      <main id='home-parent-comp'>
+        <div className='box-rows'>
+          {
+            !this.state.createNew ?
+            <button className='box' onClick={this.createProject}>Create New</button>: 
+            <NewBox id={this.state.user_id} cancel={() => this.setState({createNew: false})}/>
+          }
           {mappedProjects}
+        </div>
+        <div className='box-rows'>
           {mappedPending}
         </div>
       </main>
