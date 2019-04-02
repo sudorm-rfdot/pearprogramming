@@ -29,14 +29,19 @@ class Editor extends Component {
   {
     if(prevProps.currentFile !== this.props.currentFile)
     {
+      const {id} = prevProps.currentFile;
       console.log('switched files')
+      axios.put('/api/updatefile', {file_link: this.state.code, id});
       this.socket.emit('leave room', prevProps.currentFile.id) //leaves previous room
       this.socket.emit('join room', this.props.currentFile.id)
     }
   }
   componentWillUnmount()
   {
+    const {id} = this.props.currentFile;
+    console.log(this.state.code);
     this.socket.disconnect();
+    axios.put('/api/updatefile', {file_link: this.state.code, id});
   }
   editorDidMount = (editor, monaco) => {
     editor.focus()
@@ -67,6 +72,8 @@ class Editor extends Component {
   
   compile = () => {
     this.setState({console: "compileing..."})
+    const {id} = this.props.currentFile;
+    axios.put('/api/updatefile', {file_link: this.state.code, id});
     axios.post('/api/compiler', {code: this.state.code})
       .then(res => {
         this.setState({

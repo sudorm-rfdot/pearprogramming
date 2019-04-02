@@ -18,7 +18,12 @@
 .files
 {
     color: white;
+}
+.file
+{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 11px;
+    cursor: pointer;
 }

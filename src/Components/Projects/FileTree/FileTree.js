@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {scrubbedInput} from './FileTreeLogic';
-import './FileTree.scss'
+import './FileTree.scss';
+import fileIcon from './../../../resources/file_icon.png'
 
 class FileTree extends Component {
     constructor(props)
@@ -39,7 +40,10 @@ class FileTree extends Component {
   render() {
       const files = this.props.files.map((curVal, index) =>
       {
-        return <div key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}.js</div>
+        return <li style={{display: 'flex', alignItems: 'center', marginBottom: '3px'}}>
+            <img src='https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png'alt='file' style={{maxWidth: '15px', maxHeight: '15px', marginRight: '5px'}}/>
+            <div className='file' key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}.js</div>
+          </li>
       })
     return(
       <div className='fileTree'>
@@ -51,9 +55,9 @@ class FileTree extends Component {
             <input type='text' value={this.state.fileName} name="fileName" onChange={(event) => this.handleChange(event)}/>
             <button>Create</button>
         </form>}
-        <div className='files'>
+        <ol className='files'>
             {files}
-        </div>
+        </ol>
       </div>
     )
   }
