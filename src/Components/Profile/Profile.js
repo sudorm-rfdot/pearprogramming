@@ -183,6 +183,7 @@ class Profile extends Component {
                     id: this.state.user.id
                 }
                 axios.put('/api/profilepicture', picture)
+                .then(() => window.location.reload())
             })
             .catch(err => {
                 this.setState({
