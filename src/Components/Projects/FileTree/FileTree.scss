@@ -8,13 +8,39 @@
     padding: 15px;
     min-height: calc(100vh - #{$navbar-size});
     padding-top: 5px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .align {
+        top: 0px;
+    }
     .files {
         color: white;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        li {
+            display: flex; align-items: center; margin-bottom: 3px;
+        .icon {
+            max-width: 15px; 
+            max-height: 15px; 
+            margin-right: 5px;
+        }
+        }
     }
+    .invite-button {
+          position: fixed;
+          left: 15px;
+          bottom: 10px;
+        }
+    .delete-project {
+        background-color: $dark-error;
+        position: fixed;
+          left: 15px;
+          bottom: 50px;
+          font-size: 12px;
+    }
+   
 
     input {
         @include primary-input;
