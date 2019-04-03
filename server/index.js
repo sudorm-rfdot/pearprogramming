@@ -119,7 +119,7 @@ app.get('/api/signs3', (req, res) => {
                 })
                 socket.on('update text', (data) =>
                   {
-                    console.log(text[data.room]);
+                    // console.log(text[data.room]);
                     text[data.room] = data.text;
                     socket.to(data.room).broadcast.emit('new text', text[data.room]);
                   })
