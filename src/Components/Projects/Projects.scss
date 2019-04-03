@@ -5,12 +5,17 @@
   display: flex;
 
   button {
-    @include primary_button
+    @include primary-button;
   }
 
   .invite-button {
     position: fixed;
     left: 10px;
     bottom: 10px;
+  }
+
+  #particles {
+    width: 90%;
+    background: #2e2e2e;
   }
 }

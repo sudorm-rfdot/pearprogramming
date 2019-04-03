@@ -135,6 +135,8 @@ $primary-a-hover: rgb(0, 115, 182);
     width: 175px;
     border: 2px black solid;
     border-radius: 5px;
+    color: #20c20e;
+    background: $primary-nav-color;
 }
 @mixin primary-boxes {
     @extend %primary-boxes;
