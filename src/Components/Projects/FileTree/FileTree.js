@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {scrubbedInput} from './FileTreeLogic';
 import './FileTree.scss';
-import fileIcon from './../../../resources/file_icon.png'
+// import fileIcon from './../../../resources/file_icon.png'
 
 class FileTree extends Component {
     constructor(props)

@@ -22,6 +22,7 @@ class Invite extends Component {
       this.setState({
         emailTxt: ''
       })
+      this.props.cancel()
     })
   }
 
