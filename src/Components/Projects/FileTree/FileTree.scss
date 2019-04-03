@@ -21,7 +21,7 @@
         text-overflow: ellipsis;
         font-family: Courier, monospace;
         li {
-            display: flex; align-items: center; margin-bottom: 3px;
+            display: flex; align-items: center; margin-bottom: 3px; cursor: pointer;
             .icon {
                 max-width: 15px; 
                 max-height: 15px; 
