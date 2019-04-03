@@ -1,5 +1,6 @@
 'use strict';
 
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
