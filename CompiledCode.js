@@ -1,2 +1,2 @@
-let secondTest = 'this is actually the first test';
-console.log(secondTest);
+const shenyu = 'lets get down to business to defeat the huns did they send me daughters when I asked for sons?'
+console.log(shenyu)
