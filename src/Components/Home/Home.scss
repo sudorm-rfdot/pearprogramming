@@ -15,16 +15,18 @@
     font-family: Courier, monospace;
     color: black;
   }
-
+  .pending{
+    font-family: Courier, monospace;
+    font-size: 28px;
+    text-align: left;
+    left: 5%;
+  }
   .box-rows {
     position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    .pending{
-      font-family: Courier, monospace;
-      font-size: 28px;
-    }
+    
   }
 
   .box {

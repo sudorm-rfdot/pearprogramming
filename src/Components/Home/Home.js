@@ -96,9 +96,9 @@ class Home extends Component {
           }
           {mappedProjects}
         </div>
-        <div className='box-rows'>
         <br />
         <h1 className='pending'>Pending_Requests:</h1>
+        <div className='box-rows'>
           {mappedPending}
         </div>
       </main>
