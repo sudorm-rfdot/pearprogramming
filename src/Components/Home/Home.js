@@ -78,8 +78,7 @@ class Home extends Component {
     const mappedProjects = this.state.projects.map((projectObj, i) => {
       return (
         // <div>
-          <Boxes id={projectObj.project_id} name={projectObj.project_name} projectObj={projectObj}/>
-        //   <img onClick={id => this.deleteProject(projectObj.project_id)} src={trashboi} alt='trash' />
+          <Boxes key={i} id={projectObj.project_id} name={projectObj.project_name} projectObj={projectObj}/>
         // </div>
       )
     })
@@ -98,6 +97,8 @@ class Home extends Component {
           {mappedProjects}
         </div>
         <div className='box-rows'>
+        <br />
+        <h1 className='pending'>Pending_Requests:</h1>
           {mappedPending}
         </div>
       </main>
