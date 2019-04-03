@@ -71,7 +71,7 @@ class Editor extends Component {
 
   
   compile = () => {
-    this.setState({console: "compileing..."})
+    this.setState({console: "compiling..."})
     const {id} = this.props.currentFile;
     axios.put('/api/updatefile', {file_link: this.state.code, id});
     axios.post('/api/compiler', {code: this.state.code})
@@ -117,8 +117,10 @@ class Editor extends Component {
 
         </div> */}
         
-        
+        <div className='topbar'>
+        <h1>{this.props.currentFile.file_name}.js</h1>
         <button className='run' onClick={this.compile}>Run</button>
+        </div>
       </div>
         <MonacoEditor
           width="100%"

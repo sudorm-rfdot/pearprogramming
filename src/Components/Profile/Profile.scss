@@ -55,6 +55,7 @@
                 @include primary-button;
                 width: 150px;
                 color: $primary-header-color;
+                background: grey;
                 margin-bottom: 25px;
             };
             button:hover, button:active {

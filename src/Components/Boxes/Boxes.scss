@@ -10,7 +10,9 @@
 
         input {
             width: 90%;
+            background-color: rgb(184, 184, 184);
         }
+        
     }
     
     .new-box {
@@ -28,6 +30,11 @@
 
         input {
             width: 90%;
+            
+        }
+        button {
+            background-color: rgb(17, 17, 17);
+            color: rgb(163, 163, 163);
         }
     }
     
@@ -39,7 +46,7 @@
 
 #invite-box {
     position: fixed;
-    left: 10px;
+    left: 15px;
     bottom: 10px;
     z-index: 1;
 
@@ -47,6 +54,8 @@
         @include primary_button
     }
     input {
-        @include primary_input
+        @include primary_input;
+        background-color: rgb(184, 184, 184);
+        color: black;
     }
 }

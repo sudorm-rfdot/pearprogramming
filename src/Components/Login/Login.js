@@ -87,7 +87,7 @@ class Login extends Component {
                         onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'password'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('password'))]});}}
                     />
                     <button onClick={() => this.handleLoginButton(email, password)}>Login</button>
-                    <p>Don't have an account? <span><Link to='/register'>Create one!</Link></span></p>
+                    <p>Don't have an account?<br /><span><Link to='/register'>Create one!</Link></span></p>
                 </div>
             </div>
         )

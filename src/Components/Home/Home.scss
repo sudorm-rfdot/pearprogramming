@@ -6,10 +6,14 @@
   
   button {
     @include primary-button;
+    font-family: Courier, monospace;
+    font-size: 13px;
   }
   
   input {
     @include primary-input;
+    font-family: Courier, monospace;
+    color: black;
   }
 
   .box-rows {
@@ -17,9 +21,15 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    .pending{
+      font-family: Courier, monospace;
+      font-size: 28px;
+    }
   }
 
   .box {
     @include primary-boxes;
+    font-size: 16px;
+    font-family: Courier, monospace;
   }
 }

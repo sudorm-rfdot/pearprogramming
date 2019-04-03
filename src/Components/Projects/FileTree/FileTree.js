@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {scrubbedInput} from './FileTreeLogic';
 import './FileTree.scss';
+import trashboi from './../../../resources/trash.png'
+import Invite from './../../Boxes/Invite'
+
+
 // import fileIcon from './../../../resources/file_icon.png'
 
 class FileTree extends Component {
@@ -11,7 +15,9 @@ class FileTree extends Component {
         this.state = {
             newFile: false,
             fileName: '',
-            errorList: []
+            errorList: [],
+            edit: false,
+            clicked: false
           }
     }
   handleNewFile()
@@ -22,6 +28,12 @@ class FileTree extends Component {
   {
     this.setState({[event.target.name]: event.target.value})
   }
+  toggleBool = () => {
+    this.setState({
+      edit: !this.state.edit
+    })
+  }
+  
   handleSubmit(event)
   {
     event.preventDefault();
@@ -40,22 +52,30 @@ class FileTree extends Component {
   render() {
       const files = this.props.files.map((curVal, index) =>
       {
-        return <li style={{display: 'flex', alignItems: 'center', marginBottom: '3px'}}>
-            <img src='https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png'alt='file' style={{maxWidth: '15px', maxHeight: '15px', marginRight: '5px'}}/>
+        return <li key={index} className='listed'>
+            {this.state.edit && <img className='icon' onClick={() => this.props.deleteFile(curVal)} src={trashboi} alt='trash' />}
+            <img className='icon js' src='https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png'alt='file' />
             <div className='file' key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}.js</div>
           </li>
       })
     return(
       <div className='fileTree'>
+      <div>
         <button onClick={() => this.handleNewFile()}>{this.state.newFile ? 'Cancel' : 'Add File'}</button>
+        <button onClick={this.toggleBool}>Edit</button>
         {this.state.newFile && 
-        <form onSubmit={(event) => this.handleSubmit(event)}>
+        <form className='align' onSubmit={(event) => this.handleSubmit(event)}>
             <input type='text' value={this.state.fileName} name="fileName" onChange={(event) => this.handleChange(event)}/>
             <button>Create</button>
         </form>}
         <ol className='files'>
             {files}
         </ol>
+        </div>
+        <div>
+        {this.state.edit && <button className='delete-project' onClick={() => this.props.deleteProject(this.props.projectid)}>Delete Project</button>}
+        {!this.state.clicked ? <button className='invite-button' onClick={() => this.setState({clicked: true})}>Invite</button> : <Invite cancel={() => this.setState({clicked: false})}/>}
+        </div>
       </div>
     )
   }

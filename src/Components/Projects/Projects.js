@@ -6,7 +6,6 @@ import Editor from './Editor/Editor';
 import FileTree from './FileTree/FileTree';
 import {correctFileData} from './FileTree/FileTreeLogic';
 import './Projects.scss';
-import Invite from './../Boxes/Invite'
 import Particles from 'react-particles-js';
 import particleConfig from './../../resources/particlesjs-config.json'
 
@@ -18,7 +17,7 @@ class Projects extends Component {
       files: [],
       currentFile: {},
       errorList: [],
-      clicked: false
+
     }
   }
   componentDidMount(){
@@ -28,9 +27,20 @@ class Projects extends Component {
       console.log('after set state')
     })
   }
-  updateFileContents()
+  deleteProject = (id) =>
   {
-
+    axios.delete(`/api/delete-project/${id}`).then(() => {
+      console.log('how do delete', this.props)
+      this.props.history.push('/Home')
+    })
+  }
+  deleteFile = (file) => {
+    axios.delete(`/api/files/${file.id}`).then(() => {
+      let filtered = this.state.files.filter(el => el.id !==file.id)
+      this.setState({
+        files: filtered
+      })
+    })
   }
   changeFile = async(fileId) => {
     const foundFile = this.state.files.find(file => file.id === fileId)
@@ -58,11 +68,10 @@ class Projects extends Component {
   }
 
   render() {
-    // console.log(this.state.files);
+    console.log(this.props);
     return(
       <div className='project_page'>
-        <FileTree files={this.state.files} createFile={this.createFile} changeFile={this.changeFile}/>
-        {!this.state.clicked ? <button className='invite-button' onClick={() => this.setState({clicked: true})}>Invite</button> : <Invite cancel={() => this.setState({clicked: false})}/>}
+        <FileTree files={this.state.files} projectid={this.props.match.params.projectid} deleteFile={this.deleteFile} deleteProject={this.deleteProject} createFile={this.createFile} changeFile={this.changeFile}/>
         {(this.state.currentFile.id)
         ?<Editor currentFile={this.state.currentFile}/>
         :<div id="particles"><Particles id='particles' params={particleConfig}/></div>}
