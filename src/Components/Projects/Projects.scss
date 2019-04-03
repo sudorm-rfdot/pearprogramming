@@ -17,5 +17,11 @@
   #particles {
     width: 90%;
     background: #2e2e2e;
+    height: inherit;
+
+    div {
+      height: calc(99vh - #{$navbar-size});
+      width: 100%;
+    }
   }
 }
