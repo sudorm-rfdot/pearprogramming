@@ -7,6 +7,8 @@ import FileTree from './FileTree/FileTree';
 import {correctFileData} from './FileTree/FileTreeLogic';
 import './Projects.scss';
 import Invite from './../Boxes/Invite'
+import Particles from 'react-particles-js';
+import particleConfig from './../../resources/particlesjs-config.json'
 
 class Projects extends Component {
   constructor(props)
@@ -63,7 +65,7 @@ class Projects extends Component {
         {!this.state.clicked ? <button className='invite-button' onClick={() => this.setState({clicked: true})}>Invite</button> : <Invite cancel={() => this.setState({clicked: false})}/>}
         {(this.state.currentFile.id)
         ?<Editor currentFile={this.state.currentFile}/>
-        :<p>Get coding you lazy sloth</p>}
+        :<div id="particles"><Particles id='particles' params={particleConfig}/></div>}
       </div>
     )
   }

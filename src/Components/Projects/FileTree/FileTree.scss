@@ -1,29 +1,52 @@
-.fileTree
-{
+@import './../../../variables';
+
+.fileTree {
     width: 10%;
-    height: 100vh;
+    height: 100%;
     // background-color: grey;
     padding: 15px;
+    min-height: calc(100vh - #{$navbar-size});
+    padding-top: 5px;
+
+    .files {
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    input {
+        @include primary-input;
+        font-size: 16px;
+        height: 27px;
+    }
+
+    form {
+        position: absolute;
+        display: flex;
+        top: 5px;
+        left: 125px;
+    }
 }
-.fileTree_header
-{
-    display: flex;
-    font-size: 12px;
-}
-.fileTree_header button
-{
-    margin: 3px;
-    padding: 3px;
-}
-.files
-{
-    color: white;
-}
-.file
-{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 11px;
-    cursor: pointer;
-}
+// .fileTree_header
+// {
+//     display: flex;
+//     font-size: 12px;
+// }
+// .fileTree_header button
+// {
+//     margin: 3px;
+//     padding: 3px;
+// }
+// .files
+// {
+//     color: white;
+// }
+// .file
+// {
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     font-size: 11px;
+//     cursor: pointer;
+// }

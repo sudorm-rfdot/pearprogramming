@@ -5,11 +5,11 @@
   width: 90%;
   
   button {
-    @include primary_button;
+    @include primary-button;
   }
   
   input {
-    @include primary_input;
+    @include primary-input;
   }
 
   .box-rows {
@@ -20,6 +20,6 @@
   }
 
   .box {
-    @include primary_boxes;
+    @include primary-boxes;
   }
 }
