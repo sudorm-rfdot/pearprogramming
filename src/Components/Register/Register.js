@@ -97,7 +97,7 @@ class Register extends Component {
                         onChange={(e) => {let newObj = handleChange(this.state, e.target.value, 'passwordVer'); this.setState({...newObj, errorsList: [...errorsList.filter(element => !element.toLowerCase().includes('retype'))]});}}
                     />
                     <button onClick={() => this.handleRegisterButton(email, password, passwordVer)}>Register</button>
-                    <p>Already have an account? <span><Link to='/'>Login!</Link></span></p>
+                    <p>Already have an account?<br /><span><Link to='/'>Login!</Link></span></p>
                 </div>
             </div>
         )

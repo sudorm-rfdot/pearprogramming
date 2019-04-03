@@ -22,6 +22,8 @@ $primary-a-hover: rgb(0, 115, 182);
     font-weight: 400;
     color: $primary-header-color;
     margin: 5px;
+    font-family: Courier, monospace;
+
 }
 @mixin primary-header {
     @extend %primary-header;
@@ -32,6 +34,8 @@ $primary-a-hover: rgb(0, 115, 182);
     min-width: $default-form-size;
     background: $form-color;
     border: $form-border;
+    font-family: Courier, monospace;
+
 }
 @mixin primary-form {
     @extend %primary-form;
@@ -51,7 +55,10 @@ $primary-a-hover: rgb(0, 115, 182);
     text-align: center;
     outline: none;
     background: $primary-input-background;
+    // background: $primary-header-color;
     color: $primary-header-color;
+    font-family: Courier, monospace;
+
 }
 @mixin primary-input {
     @extend %primary-input;
@@ -81,9 +88,12 @@ $primary-a-hover: rgb(0, 115, 182);
     margin: 5px;
     padding: 5px;
     border-radius: 15px;
-    background: $primary-button-background;
+    // background: $primary-button-background;
     color: $primary-header-color;
+    background: rgb(20, 20, 20);
     outline: none;
+    font-family: Courier, monospace;
+
 }
 @mixin primary-button {
     @extend %primary-button;
