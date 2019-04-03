@@ -10,6 +10,7 @@
 
         input {
             width: 90%;
+            background-color: rgb(184, 184, 184);
         }
         
     }
@@ -29,6 +30,7 @@
 
         input {
             width: 90%;
+            
         }
         button {
             background-color: rgb(17, 17, 17);
@@ -52,6 +54,8 @@
         @include primary_button
     }
     input {
-        @include primary_input
+        @include primary_input;
+        background-color: rgb(184, 184, 184);
+        color: black;
     }
 }

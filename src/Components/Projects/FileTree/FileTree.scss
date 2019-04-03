@@ -19,13 +19,15 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-family: Courier, monospace;
         li {
             display: flex; align-items: center; margin-bottom: 3px;
-        .icon {
-            max-width: 15px; 
-            max-height: 15px; 
-            margin-right: 5px;
-        }
+            .icon {
+                max-width: 15px; 
+                max-height: 15px; 
+                margin-right: 5px;
+            }
+       
         }
     }
     .invite-button {
@@ -46,6 +48,9 @@
         @include primary-input;
         font-size: 16px;
         height: 27px;
+        background-color: rgb(184, 184, 184);
+        color: black;
+
     }
 
     form {

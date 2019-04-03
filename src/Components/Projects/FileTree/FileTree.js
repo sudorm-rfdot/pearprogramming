@@ -52,7 +52,7 @@ class FileTree extends Component {
   render() {
       const files = this.props.files.map((curVal, index) =>
       {
-        return <li key={index}>
+        return <li key={index} className='listed'>
             {this.state.edit && <img className='icon' onClick={() => this.props.deleteFile(curVal)} src={trashboi} alt='trash' />}
             <img className='icon js' src='https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png'alt='file' />
             <div className='file' key={index} onClick={() => this.props.changeFile(curVal.id)}>{curVal.file_name}.js</div>
