@@ -12,8 +12,8 @@ pearprogramming.co
 
 
 
-Contact: 
-Matt Bodily: linkedin.com/in/matthewbodily
-Spencer Johnson: splusplus.me, linkedin.com/in/splusplus
-Nick McQueen: nicholasmcqueen.com, linkedin.com/in/n-mcqueen
+Contact:   
+Matt Bodily: linkedin.com/in/matthewbodily  
+Spencer Johnson: splusplus.me, linkedin.com/in/splusplus  
+Nick McQueen: nicholasmcqueen.com, linkedin.com/in/n-mcqueen  
 David Wells: linkedin.com/in/david-wells9/
