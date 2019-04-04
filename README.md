@@ -9,3 +9,11 @@ The editor only currently supports JavaScript, but more languages are in the wor
 This project was made with ♡ by Matt Bodily, Spencer Johnson, Nick McQueen, and David Wells at DevMountain
 
 pearprogramming.co
+
+
+
+Contact: 
+Matt Bodily: linkedin.com/in/matthewbodily
+Spencer Johnson: splusplus.me, linkedin.com/in/splusplus
+Nick McQueen: nicholasmcqueen.com, linkedin.com/in/n-mcqueen
+David Wells: linkedin.com/in/david-wells9/
