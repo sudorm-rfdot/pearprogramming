@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
 $primary-nav-color: rgb(30, 30, 30);
 $background-color: rgb(85, 85, 85);
 $primary-header-color: rgb(230, 230, 230);
@@ -17,12 +19,14 @@ $primary-button-hover: rgb(100, 100, 100);
 $primary-a-color: rgb(0, 144, 228);
 $primary-a-hover: rgb(0, 115, 182);
 
+
+
 %primary-header {
     font-size: 30px;
     font-weight: 400;
     color: $primary-header-color;
     margin: 5px;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
 
 }
 @mixin primary-header {
@@ -34,7 +38,7 @@ $primary-a-hover: rgb(0, 115, 182);
     min-width: $default-form-size;
     background: $form-color;
     border: $form-border;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
 
 }
 @mixin primary-form {
@@ -57,7 +61,7 @@ $primary-a-hover: rgb(0, 115, 182);
     background: $primary-input-background;
     // background: $primary-header-color;
     color: $primary-header-color;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
 
 }
 @mixin primary-input {
@@ -92,7 +96,7 @@ $primary-a-hover: rgb(0, 115, 182);
     color: $primary-header-color;
     background: rgb(20, 20, 20);
     outline: none;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
 
 }
 @mixin primary-button {
