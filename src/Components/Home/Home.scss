@@ -6,17 +6,17 @@
   
   button {
     @include primary-button;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 13px;
   }
   
   input {
     @include primary-input;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
     color: black;
   }
   .pending{
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 28px;
     text-align: left;
     left: 5%;
@@ -32,6 +32,6 @@
   .box {
     @include primary-boxes;
     font-size: 16px;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
   }
 }
